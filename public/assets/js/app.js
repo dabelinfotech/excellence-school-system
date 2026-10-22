@@ -281,6 +281,9 @@ function initMobileDrawer() {
           <a href="/secondary" class="mobile-nav-link ${path === '/secondary' ? 'active' : ''}">
             <span style="font-size: 1.15rem;">🏛️</span> <span>Excellence College</span>
           </a>
+          <a href="/facilities" class="mobile-nav-link ${path === '/facilities' || path === '/gallery' ? 'active' : ''}">
+            <span style="font-size: 1.15rem;">🏫</span> <span>Facilities & Campus Life</span>
+          </a>
           <a href="/result-checker" class="mobile-nav-link ${path === '/result-checker' ? 'active' : ''}">
             <span style="font-size: 1.15rem;">📜</span> <span>Result Checker (PIN Slips)</span>
           </a>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Facilities & Photographic Showcase | Excellence British Schools</title>
+  <meta name="description" content="Explore the state-of-the-art facilities, modern science laboratories, computing suites, reading libraries, and athletic grounds of Excellence British Schools.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  
+  <style>
+    .gallery-filter-btn {
+      padding: 10px 22px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      border: 1px solid rgba(197, 160, 89, 0.4);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--slate-300);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .gallery-filter-btn:hover {
+      background: rgba(197, 160, 89, 0.18);
+      color: var(--gold-300);
+      border-color: var(--gold-400);
+      transform: translateY(-2px);
+    }
+    .gallery-filter-btn.active {
+      background: var(--gold-500);
+      color: var(--navy-950);
+      border-color: var(--gold-400);
+      box-shadow: 0 4px 18px rgba(197, 160, 89, 0.35);
+    }
+    .facility-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(197, 160, 89, 0.25);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .facility-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--gold-400);
+      box-shadow: 0 16px 40px rgba(197, 160, 89, 0.22);
+    }
+    .facility-img-wrap {
+      height: 240px;
+      overflow: hidden;
+      position: relative;
+    }
+    .facility-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .facility-card:hover .facility-img-wrap img {
+      transform: scale(1.06);
+    }
+    .facility-wing-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .tag-college {
+      background: rgba(10, 25, 47, 0.85);
+      color: var(--gold-300);
+      border: 1px solid var(--gold-400);
+    }
+    .tag-elementary {
+      background: rgba(133, 16, 38, 0.85);
+      color: #fff;
+      border: 1px solid #fca5a5;
+    }
+    
+    /* Lightbox Modal */
+    #gallery-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 14, 0.94);
+      backdrop-filter: blur(10px);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+    #lightbox-card {
+      max-width: 860px;
+      width: 100%;
+      background: var(--navy-900);
+      border: 2px solid var(--gold-400);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+      position: relative;
+    }
+    #lightbox-img {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      display: block;
+    }
+  </style>
+</head>
+<body style="background: var(--navy-950); color: #fff;">
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       1. TOP UTILITY BAR & NOTICES
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="accreditation-badges">
+        <span>🇬🇧 British National Curriculum</span>
+        <span class="sep">•</span>
+        <span>🏛️ Cambridge International School</span>
+        <span class="sep">•</span>
+        <span>🇳🇬 WAEC & NECO Approved</span>
+      </div>
+      <div class="quick-contact-actions">
+        <a href="tel:+2348030008899">📞 +234 803 000 8899</a>
+        <a href="mailto:info@excellencebritishschool.sch.ng">✉️ admissions@excellencebritishschool.sch.ng</a>
+        <a href="/admin" class="staff-portal-link">🔐 Staff / Admin Portal</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       2. PRIMARY NAVIGATION BAR
+       ═══════════════════════════════════════════════════════════════════ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand-wrapper">
+        <div class="brand-crest">
+          <img src="/assets/images/crest.jpg" alt="Excellence British Schools Official Crest">
+        </div>
+        <div class="brand-details">
+          <h1>EXCELLENCE BRITISH SCHOOLS</h1>
+          <p class="latin-motto">Virtus, Sapientia et Excellentia — Virtue, Wisdom and Excellence</p>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/primary" class="nav-link">Excellence Elementary</a>
+        <a href="/secondary" class="nav-link">Excellence College</a>
+        <a href="/facilities" class="nav-link active">Facilities</a>
+        <a href="/result-checker" class="nav-link">Result Checker</a>
+        <a href="/cbt" class="nav-link">CBT Testing</a>
+        <a href="/payment-receipt" class="nav-link">Fee Receipts</a>
+        <a href="/newsletter" class="nav-link">Newsletters</a>
+        <a href="/events" class="nav-link">Events</a>
+
+        <button type="button" class="wing-select-btn open-wing-modal-btn">
+          <span>Select School Wing</span> ▾
+        </button>
+      </nav>
+
+      <button type="button" class="mobile-toggle-btn" aria-label="Toggle Navigation">
+        ☰
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       3. HERO HEADER
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section style="background: radial-gradient(circle at 50% 20%, #0a1e38 0%, #02060e 100%); padding: 70px 0 50px 0; border-bottom: 2px solid var(--gold-500); text-align: center;">
+    <div class="container">
+      <span class="section-badge" style="background: rgba(197, 160, 89, 0.2); border-color: var(--gold-400); color: var(--gold-300);">Photographic Facilities Showcase</span>
+      <h1 class="section-title" style="color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); margin-top: 12px; margin-bottom: 16px;">
+        Life & Academic Splendour at Excellence British Schools
+      </h1>
+      <p class="section-subtitle" style="color: var(--slate-300); max-width: 780px; margin: 0 auto 32px auto; font-size: 1.05rem;">
+        Explore our world-class educational infrastructure, Cambridge experimental science laboratories, child-centered reading suites, high-performance ICT complexes, and collegiate traditions.
+      </p>
+
+      <!-- Wing Direct Actions -->
+      <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+        <a href="/secondary" class="btn btn-gold" style="padding: 10px 22px;">
+          🏛️ Excellence College Wing
+        </a>
+        <a href="/primary" class="btn btn-crimson" style="padding: 10px 22px;">
+          🧸 Excellence Elementary Wing
+        </a>
+        <button type="button" class="btn btn-outline-white open-wing-modal-btn" style="padding: 10px 20px;">
+          📅 Book a Campus Tour
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       4. INTERACTIVE FILTER NAVIGATION
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section style="padding: 30px 0; background: rgba(5, 14, 24, 0.8); border-bottom: 1px solid rgba(197, 160, 89, 0.2);">
+    <div class="container">
+      <div style="display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;" id="gallery-filters">
+        <button type="button" class="gallery-filter-btn active" data-filter="all">
+          🌟 All Campus Facilities (<span id="count-all">10</span>)
+        </button>
+        <button type="button" class="gallery-filter-btn" data-filter="college">
+          🏛️ Excellence College (<span id="count-college">6</span>)
+        </button>
+        <button type="button" class="gallery-filter-btn" data-filter="elementary">
+          🧸 Excellence Elementary (<span id="count-elementary">4</span>)
+        </button>
+        <button type="button" class="gallery-filter-btn" data-filter="stem">
+          🔬 STEM & Digital Labs (<span id="count-stem">4</span>)
+        </button>
+        <button type="button" class="gallery-filter-btn" data-filter="arts">
+          ⚽ Sports, Culture & Arts (<span id="count-arts">2</span>)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       5. PHOTOGRAPHIC FACILITIES SHOWCASE GRID
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section style="padding: 70px 0 100px 0; background: radial-gradient(circle at 50% 50%, #06111f 0%, #02060e 100%);">
+    <div class="container">
+      <div id="facility-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 26px;">
+        
+        <!-- Item 1: Main Quadrangle Assembly -->
+        <div class="facility-card" data-category="college assembly" onclick="openLightbox(this)">
+          <div class="facility-img-wrap">
+            <span class="facility-wing-tag tag-college">Excellence College</span>
+            <img src="/assets/images/college/college_assembly.jpg" alt="Collegiate Morning Assembly & Quadrangle">
+          </div>
+          <div style="padding: 22px; flex-grow: 1; display: flex; flex-direction: column;">
+            <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-400); font-weight: 700;">Collegiate Discipline</span>
+            <h4 style="color: #fff; font-size: 1.18rem; margin: 6px 0 8px 0;">Main Quadrangle Morning Assembly</h4>
+            <p style="color: var(--slate-300); font-size: 0.88rem; margin: 0 0 16px 0; line-height: 1.55; flex-grow: 1;">
+              Daily morning parade cultivating moral character, oratorical distinction, leadership, and collegiate unity across our British House system.
+            </p>
+            <div style="font-size: 0.8rem; color: var(--gold-300); font-weight: 600; display: flex; align-items: center; gap: 6px;">
+              <span>🔍 Click to inspect photograph</span> ➔
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2: Advanced Science Lab -->
+        <div class="facility-card" data-category="college stem labs" onclick="openLightbox(this)">
+          <div class="facility-img-wrap">
+            <span class="facility-wing-tag tag-college">Excellence College</span>
+            <img src="/assets/images/college/college_sci_lab.jpg" alt="Advanced Chemistry & Sciences Laboratory">
+          </div>
+          <div style="padding: 22px; flex-grow: 1; display: flex; flex-direction: column;">
+            <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-400); font-weight: 700;">STEM & Scientific Rigour</span>
+            <h4 style="color: #fff; font-size: 1.18rem; margin: 6px 0 8px 0;">Advanced Chemistry & Sciences Lab</h4>
+            <p style="color: var(--slate-300); font-size: 0.88rem; margin: 0 0 16px 0; line-height: 1.55; flex-grow: 1;">
+              Fully outfitted Cambridge IGCSE and WAEC experimental laboratories for Chemistry, Physics, and Biology practical investigations.
+            </p>
+            <div style="font-size: 0.8rem; color: var(--gold-300); font-weight: 600; display: flex; align-items: center; gap: 6px;">
+              <span>🔍 Click to inspect photograph</span> ➔
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3: Computer Science & Coding Complex -->
+        <div class="facility-card" data-category="college stem labs" onclick="openLightbox(this)">
+          <div class="facility-img-wrap">
+            <span class="facility-wing-tag tag-college">Excellence College</span>
+            <img src="/assets/images/college/college_ict.jpg" alt="Computer Science & Digital Innovation Lab">
+          </div>
+          <div style="padding: 22px; flex-grow: 1; display: flex; flex-direction: column;">
+            <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-400); font-weight: 700;">Digital Literacy & Coding</span>
+            <h4 style="color: #fff; font-size: 1.18rem; margin: 6px 0 8px 0;">Computer Science & Coding Complex</h4>
+            <p style="color: var(--slate-300); font-size: 0.88rem; margin: 0 0 16px 0; line-height: 1.55; flex-grow: 1;">
+              High-performance digital laboratory empowering secondary students in Python, robotics, algorithms, and automated computer-based testing.
+            </p>
+            <div style="font-size: 0.8rem; color: var(--gold-300); font-weight: 600; display: flex; align-items: center; gap: 6px;">
+              <span>🔍 Click to inspect photograph</span> ➔
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4: Elementary Storytime Library -->
+        <div class="facility-card" data-category="elementary library" onclick="openLightbox(this)">
+          <div class="facility-img-wrap">
+            <span class="facility-wing-tag tag-elementary">Excellence Elementary</span>
+            <img src="/assets/images/elementary/elementary_library.jpg" alt="Excellence Elementary Storytime & Library">
+          </div>
+          <div style="padding: 22px; flex-grow: 1; display: flex; flex-direction: column;">
+            <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-400); font-weight: 700;">Elementary Literacy</span>
+            <h4 style="color: #fff; font-size: 1.18rem; margin: 6px 0 8px 0;">Excellence Elementary Storytime Library</h4>
+            <p style="color: var(--slate-300); font-size: 0.88rem; margin: 0 0 16px 0; line-height: 1.55; flex-grow: 1;">
+              Vibrant reading environment fostering rich vocabulary acquisition, creative thinking, and a lifelong devotion to books for young pupils.
+            </p>
+            <div style="font-size: 0.8rem; color: var(--gold-300); font-weight: 600; display: flex; align-items: center; gap: 6px;">
+              <span>🔍 Click to inspect photograph</span> ➔
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5: Sports & Athletics Pitch -->
+        <div class="facility-card" data-category="college arts sports" onclick="openLightbox(this)">
+          <div class="facility-img-wrap">
+            <span class="facility-wing-tag tag-college">Excellence College</span>
+            <img src="/assets/images/college/college_sports.jpg" alt="Inter-House Football & Athletics Match">
+          </div>
+          <div style="padding: 22px; flex-grow: 1; display: flex; flex-direction: column;">
+            <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-400); font-weight: 700;">Athletics & Sportsmanship</span>
+            <h4 style="color: #fff; font-size: 1.18rem; margin: 6px 0 8px 0;">Inter-House Football & Athletics</h4>
+            <p style="color: var(--slate-300); font-size: 0.88rem; margin: 0 0 16px 0; line-height: 1.55; flex-grow: 1;">
+              Fierce yet honourable competition across our British houses on pristine natural grass football pitches and athletic sprint tracks.
+            </p>
+            <div style="font-size: 0.8rem; color: var(--gold-300); font-weight: 600; display: flex; align-items: center; gap: 6px;">
+              <span>🔍 Click to inspect photograph</span> ➔
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 6: African Cultural Day Celebration -->
+        <div class="facility-card" data-category="college arts" onclick="openLightbox(this)">
+          <div class="facility-img-wrap">
+            <span class="facility-wing-tag tag-college">Excellence College</span>
+            <img src="/assets/images/college/college_cultural.jpg" alt="Annual African Cultural Day Festival">
+          </div>
+          <div style="padding: 22px; flex-grow: 1; display: flex; flex-direction: column;">
+            <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-400); font-weight: 700;">Cultural Heritage</span>
+            <h4 style="color: #fff; font-size: 1.18rem; margin: 4px 0 8px 0;">Annual African Cultural Day Festival</h4>
+            <p style="color: var(--slate-300); font-size: 0.88rem; margin: 0 0 16px 0; line-height: 1.55; flex-grow: 1;">
+              Celebrating African cultural dignity, regal tribal ensembles, artistic pageantry, and international brotherhood within a British framework.
+            </p>
+            <div style="font-size: 0.8rem; color: var(--gold-300); font-weight: 600; display: flex; align-items: center; gap: 6px;">
+              <span>🔍 Click to inspect photograph</span> ➔
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 7: Elementary Morning Parade -->
+        <div class="facility-card" data-category="elementary assembly" onclick="openLightbox(this)">
+          <div class="facility-img-wrap">
+            <span class="facility-wing-tag tag-elementary">Excellence Elementary</span>
+            <img src="/assets/images/elementary/elementary_assembly.jpg" alt="Excellence Elementary Morning Parade">
+          </div>
+          <div style="padding: 22px; flex-grow: 1; display: flex; flex-direction: column;">
+            <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-400); font-weight: 700;">Pupil Community</span>
+            <h4 style="color: #fff; font-size: 1.18rem; margin: 6px 0 8px 0;">Junior Quadrangle Morning Parade</h4>
+            <p style="color: var(--slate-300); font-size: 0.88rem; margin: 0 0 16px 0; line-height: 1.55; flex-grow: 1;">
+              Inspiring morning devotion, hymns, elocution exercises, and collegiate unity cultivating leadership and values from an early age.
+            </p>
+            <div style="font-size: 0.8rem; color: var(--gold-300); font-weight: 600; display: flex; align-items: center; gap: 6px;">
+              <span>🔍 Click to inspect photograph</span> ➔
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 8: Early Years Phonics Classroom -->
+        <div class="facility-card" data-category="elementary classroom" onclick="openLightbox(this)">
+          <div class="facility-img-wrap">
+            <span class="facility-wing-tag tag-elementary">Excellence Elementary</span>
+            <img src="/assets/images/elementary/elementary_classroom.jpg" alt="Early Years Phonics & Sensory Classroom">
+          </div>
+          <div style="padding: 22px; flex-grow: 1; display: flex; flex-direction: column;">
+            <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-400); font-weight: 700;">Early Years Foundation</span>
+            <h4 style="color: #fff; font-size: 1.18rem; margin: 6px 0 8px 0;">Early Years Sensory Classroom</h4>
+            <p style="color: var(--slate-300); font-size: 0.88rem; margin: 0 0 16px 0; line-height: 1.55; flex-grow: 1;">
+              Bright, stimulating classroom equipped with Jolly Phonics sets, numeracy manipulatives, and safe exploratory zones.
+            </p>
+            <div style="font-size: 0.8rem; color: var(--gold-300); font-weight: 600; display: flex; align-items: center; gap: 6px;">
+              <span>🔍 Click to inspect photograph</span> ➔
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 9: Junior ICT Lab -->
+        <div class="facility-card" data-category="elementary stem labs" onclick="openLightbox(this)">
+          <div class="facility-img-wrap">
+            <span class="facility-wing-tag tag-elementary">Excellence Elementary</span>
+            <img src="/assets/images/elementary/elementary_ict.jpg" alt="Junior ICT & Digital Discovery Lab">
+          </div>
+          <div style="padding: 22px; flex-grow: 1; display: flex; flex-direction: column;">
+            <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-400); font-weight: 700;">Digital Foundations</span>
+            <h4 style="color: #fff; font-size: 1.18rem; margin: 6px 0 8px 0;">Junior ICT & Robotics Suite</h4>
+            <p style="color: var(--slate-300); font-size: 0.88rem; margin: 0 0 16px 0; line-height: 1.55; flex-grow: 1;">
+              Ergonomic workstations introducing young learners to keyboarding, Scratch coding, robotics, and interactive media.
+            </p>
+            <div style="font-size: 0.8rem; color: var(--gold-300); font-weight: 600; display: flex; align-items: center; gap: 6px;">
+              <span>🔍 Click to inspect photograph</span> ➔
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 10: Collegiate Physics Lab -->
+        <div class="facility-card" data-category="college stem labs" onclick="openLightbox(this)">
+          <div class="facility-img-wrap">
+            <span class="facility-wing-tag tag-college">Excellence College</span>
+            <img src="/assets/images/college/college_physics.jpg" alt="Collegiate Physics Experimental Laboratory">
+          </div>
+          <div style="padding: 22px; flex-grow: 1; display: flex; flex-direction: column;">
+            <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-400); font-weight: 700;">Applied Physics</span>
+            <h4 style="color: #fff; font-size: 1.18rem; margin: 6px 0 8px 0;">Experimental Physics & Optics Lab</h4>
+            <p style="color: var(--slate-300); font-size: 0.88rem; margin: 0 0 16px 0; line-height: 1.55; flex-grow: 1;">
+              Precision apparatus for mechanics, electromagnetism, circuit design, and Cambridge advanced optical experiments.
+            </p>
+            <div style="font-size: 0.8rem; color: var(--gold-300); font-weight: 600; display: flex; align-items: center; gap: 6px;">
+              <span>🔍 Click to inspect photograph</span> ➔
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       6. LIGHTBOX MODAL
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div id="gallery-lightbox" onclick="closeLightbox(event)">
+    <div id="lightbox-card">
+      <button type="button" onclick="forceCloseLightbox()" style="position: absolute; top: 14px; right: 16px; background: rgba(0,0,0,0.6); color: #fff; border: 1px solid var(--gold-400); width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10;">&times;</button>
+      <img id="lightbox-img" src="" alt="">
+      <div style="padding: 24px;">
+        <span id="lightbox-badge" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-400); font-weight: 700;"></span>
+        <h3 id="lightbox-title" style="color: #fff; font-size: 1.4rem; margin: 4px 0 8px 0;"></h3>
+        <p id="lightbox-desc" style="color: var(--slate-300); font-size: 0.95rem; margin: 0; line-height: 1.6;"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       7. FOOTER
+       ═══════════════════════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>© 2026 Excellence British Schools. Regulated under British International School Standards.</p>
+      <div style="display: flex; gap: 20px;">
+        <a href="/">Main Portal</a>
+        <a href="/primary">Excellence Elementary</a>
+        <a href="/secondary">Excellence College</a>
+        <a href="/admin">Staff Dashboard</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Wing Select Modal -->
+  <div class="modal-overlay" id="wing-select-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Select School Wing</h3>
+        <button type="button" class="modal-close-btn" id="close-wing-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--slate-600); margin-bottom: 20px;">Choose a section to explore:</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <a href="/primary" style="display: block; background: var(--cream-100); border: 2px solid var(--gold-400); border-radius: 12px; padding: 20px; text-align: center; text-decoration: none;">
+            <img src="/assets/images/elementary/elementary_classroom.jpg" style="width: 100%; height: 110px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;" alt="Elementary">
+            <h4 style="color: var(--navy-900); margin: 0;">Excellence Elementary</h4>
+            <span style="font-size: 0.8rem; color: var(--slate-600);">Creche, Nursery & Primary</span>
+          </a>
+          <a href="/secondary" style="display: block; background: var(--navy-900); border: 2px solid var(--gold-500); border-radius: 12px; padding: 20px; text-align: center; color: #fff; text-decoration: none;">
+            <img src="/assets/images/college/college_classroom.jpg" style="width: 100%; height: 110px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;" alt="College">
+            <h4 style="color: var(--gold-300); margin: 0;">Excellence College</h4>
+            <span style="font-size: 0.8rem; color: var(--slate-300);">Secondary & Sixth Form</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/app.js"></script>
+  <script>
+    // Lightbox logic
+    function openLightbox(card) {
+      const img = card.querySelector('img').src;
+      const title = card.querySelector('h4').textContent;
+      const badge = card.querySelector('span').textContent;
+      const desc = card.querySelector('p').textContent;
+
+      document.getElementById('lightbox-img').src = img;
+      document.getElementById('lightbox-title').textContent = title;
+      document.getElementById('lightbox-badge').textContent = badge;
+      document.getElementById('lightbox-desc').textContent = desc;
+
+      const modal = document.getElementById('gallery-lightbox');
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(e) {
+      if (e.target.id === 'gallery-lightbox') {
+        forceCloseLightbox();
+      }
+    }
+
+    function forceCloseLightbox() {
+      document.getElementById('gallery-lightbox').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    // Filter logic
+    document.querySelectorAll('.gallery-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.gallery-filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+        const cards = document.querySelectorAll('.facility-card');
+
+        cards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'all' || category.includes(filter)) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

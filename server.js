@@ -1147,6 +1147,8 @@ app.get('/result-checker', (req, res) => res.sendFile('result-checker.html', { r
 app.get('/payment-receipt', (req, res) => res.sendFile('payment-receipt.html', { root: publicDir }));
 app.get('/newsletter', (req, res) => res.sendFile('newsletter.html', { root: publicDir }));
 app.get('/events', (req, res) => res.sendFile('events.html', { root: publicDir }));
+app.get('/facilities', (req, res) => res.sendFile('gallery.html', { root: publicDir }));
+app.get('/gallery', (req, res) => res.sendFile('gallery.html', { root: publicDir }));
 app.get('/admin', (req, res) => res.sendFile('admin.html', { root: publicDir }));
 
 // Catch-all route for Express 5
