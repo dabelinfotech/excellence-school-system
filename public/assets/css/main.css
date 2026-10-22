@@ -1158,19 +1158,9 @@ h1, h2, h3, h4, .font-serif {
   100% { transform: scaleY(1.0); }
 }
 
-/* Cinema Overlay Caption */
+/* Cinema Overlay Caption (Hidden for full-view mobile image performance) */
 .cinema-caption-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(0deg, rgba(3, 8, 17, 0.95) 0%, rgba(3, 8, 17, 0.7) 60%, rgba(3, 8, 17, 0) 100%);
-  padding: 40px 30px 24px 30px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 20px;
-  z-index: 5;
+  display: none !important;
 }
 
 .cinema-caption-text {
