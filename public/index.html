@@ -19,27 +19,7 @@
 <body>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       1. UK TOP BAR (Accreditations, Term Resumption & Portals)
-       ═══════════════════════════════════════════════════════════════════ -->
-  <div class="uk-top-bar">
-    <div class="container uk-top-bar-inner">
-      <div class="uk-accreditation-tags">
-        <span class="uk-badge-pill">🇬🇧 British Curriculum Standards</span>
-        <span class="uk-badge-pill">🏛️ British Council Partner</span>
-        <span class="uk-badge-pill">📜 Cambridge Assessment International</span>
-        <span class="uk-badge-pill">⭐ COBIS Accredited Member</span>
-      </div>
-      <div class="uk-top-links">
-        <span>📅 Next Term Resumption: <strong>Jan 12, 2026</strong></span>
-        <a href="#result-checker" style="color: var(--gold-300); font-weight: 700;">Result Portal</a>
-        <a href="#payment-section">Bursary Clearance</a>
-        <a href="/admin" class="open-auth-modal-btn" data-wing="staff" data-title="Staff & Management Login">Staff Login →</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════════════
-       2. SITE HEADER & NAVIGATION
+       1. SITE HEADER & NAVIGATION
        ═══════════════════════════════════════════════════════════════════ -->
   <header class="site-header">
     <div class="container header-inner">
@@ -117,10 +97,10 @@
           <a href="/secondary" class="btn btn-gold" style="padding: 8px 18px; font-size: 0.84rem;">
             🏛️ Enter Excellence College
           </a>
-          <a href="#result-checker" class="btn btn-outline-white" style="padding: 8px 16px; font-size: 0.84rem;">
+          <a href="/result-checker" class="btn btn-outline-white" style="padding: 8px 16px; font-size: 0.84rem;">
             📜 Result Checker
           </a>
-          <a href="#cbt-section" class="btn btn-outline-white" style="padding: 8px 16px; font-size: 0.84rem;">
+          <a href="/cbt" class="btn btn-outline-white" style="padding: 8px 16px; font-size: 0.84rem;">
             💻 CBT Portal
           </a>
         </div>
@@ -226,7 +206,7 @@
             <a href="#wing-selection" class="btn btn-gold">
               🏛️ Explore Our Two Wings →
             </a>
-            <a href="#result-checker" class="btn btn-outline-white">
+            <a href="/result-checker" class="btn btn-outline-white">
               📜 Check Terminal Result Slips
             </a>
           </div>
@@ -359,328 +339,7 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       6. EXECUTIVE HEADMASTER'S WELCOME
-       ═══════════════════════════════════════════════════════════════════ -->
-  <section class="headmaster-section">
-    <div class="container headmaster-grid">
-      <div class="headmaster-image-box">
-        <img src="/assets/images/college/college_assembly.jpg" alt="Excellence British Schools Assembly & Executive Leadership">
-        <div class="headmaster-badge-frame">
-          <strong style="display: block; font-size: 1rem; color: var(--gold-400);">Dr. Babatunde Alabi, Ph.D</strong>
-          <span style="font-size: 0.8rem; color: var(--slate-300);">FRSA, M.A. (Cantab) • Executive Headmaster</span>
-        </div>
-      </div>
-
-      <div class="headmaster-text-box">
-        <span class="section-badge">Leadership Welcome</span>
-        <h2>A Tradition of Academic Rigour, Global Character & Moral Excellence</h2>
-        <blockquote>
-          "At Excellence British Schools, education is not simply an accumulation of facts, but the elevation of the human intellect, spirit, and African pride within a global theatre."
-        </blockquote>
-        <p>
-          Welcome to Excellence British Schools. Our institution represents the pinnacle of British international education fused with strong African cultural dignity, integrity, and intellectual curiosity.
-        </p>
-        <p>
-          Whether your child begins at <strong>Excellence Elementary School</strong> or embarks on rigorous Cambridge IGCSE and A-Levels at <strong>Excellence College</strong>, they are mentored by educators of international distinction committed to drawing out the greatest brilliance in every scholar.
-        </p>
-
-        <div style="display: flex; gap: 30px; align-items: center; margin-top: 24px;">
-          <div style="font-family: 'Brush Script MT', cursive; font-size: 2.2rem; color: var(--navy-900);">
-            Babatunde Alabi
-          </div>
-          <div>
-            <span style="font-weight: 700; color: var(--navy-900); display: block;">Executive Headmaster</span>
-            <span style="font-size: 0.82rem; color: var(--slate-500);">Excellence British Schools</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════
-       7. RESULT CHECKER PORTAL SESSION (Integrated)
-       ═══════════════════════════════════════════════════════════════════ -->
-  <section class="checker-section" id="result-checker" style="padding: 80px 0; background: var(--cream-200);">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge">Student Assessment Registry</span>
-        <h2 class="section-title">Online Student Result Checker</h2>
-        <p class="section-subtitle">
-          Query, inspect, and generate authentic terminal progress report slips for Excellence Elementary pupils and Excellence College scholars.
-        </p>
-      </div>
-
-      <div class="checker-wrapper">
-        <!-- Wing Selector Tabs -->
-        <div class="checker-header-tabs">
-          <div class="checker-tab active" data-wing="primary">
-            <span>🧸 Excellence Elementary School</span>
-          </div>
-          <div class="checker-tab" data-wing="secondary">
-            <span>🔬 Excellence College</span>
-          </div>
-        </div>
-
-        <!-- Form Body -->
-        <div class="checker-form-body" id="checker-form-container">
-          <!-- Quick Demo 1-Click Fill -->
-          <div class="quick-demo-box">
-            <div>
-              <p>⚡ Quick Demo Testing (1-Click Fill):</p>
-              <span style="font-size: 0.78rem; color: #666;">Click any test scholar to auto-fill their credentials and check their result:</span>
-            </div>
-            <div class="demo-pills" id="demo-pills-container"></div>
-          </div>
-
-          <form id="checker-form">
-            <div class="form-grid-2">
-              <div class="input-group">
-                <label for="admission_number">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  Student Admission Number
-                </label>
-                <input type="text" id="admission_number" class="input-control" placeholder="e.g. NPS/2024/001 or SEC/2024/001" required autocomplete="off">
-                <span style="font-size: 0.78rem; color: var(--slate-500);">Current wing: <strong id="active-wing-label">Excellence Elementary School</strong></span>
-              </div>
-
-              <div class="input-group">
-                <label for="pin">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                  Confidential Scratch Card PIN
-                </label>
-                <input type="text" id="pin" class="input-control" placeholder="e.g. EXCEL001 or SEC0001" required maxlength="12" autocomplete="off" style="font-family: var(--font-mono); letter-spacing: 1px;">
-                <span style="font-size: 0.78rem; color: var(--slate-500);">Obtain card from Bursary. Up to 5 checks permitted.</span>
-              </div>
-            </div>
-
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
-              <button type="submit" class="btn btn-gold" id="check-btn" style="padding: 14px 34px;">
-                <span class="btn-text">🔍 Check & Generate Result Slip</span>
-                <span class="btn-loader" style="display:none">Querying Database...</span>
-              </button>
-
-              <span style="font-size: 0.85rem; color: var(--slate-500);">
-                🔒 256-bit Encrypted Official Registry Protocol
-              </span>
-            </div>
-
-            <div id="error-message" style="display:none; margin-top: 20px; padding: 14px; background: #fee2e2; border: 1px solid #ef4444; border-radius: 8px; color: #b91c1c; font-size: 0.9rem; align-items: center; gap: 10px;">
-              <span>⚠️</span>
-              <span id="error-text"></span>
-            </div>
-          </form>
-        </div>
-
-        <!-- Rendered Slip Target Output -->
-        <div id="result-slip-output" style="display:none; padding: 20px;"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════
-       8. CBT (COMPUTER-BASED TEST) PORTAL SESSION
-       ═══════════════════════════════════════════════════════════════════ -->
-  <section class="cbt-preview-section" id="cbt-section" style="padding: 80px 0; background: var(--white);">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge">Digital Assessment Engine</span>
-        <h2 class="section-title">Interactive Computer-Based Test (CBT) Center</h2>
-        <p class="section-subtitle">
-          Practice and sit for real-time timed assessments across Excellence Elementary KS2 Quizzes and Excellence College Cambridge IGCSE Mock Examinations.
-        </p>
-      </div>
-
-      <div class="cbt-container">
-        <!-- Setup / Launch Card -->
-        <div id="cbt-setup-card" style="padding: 40px;">
-          <form id="cbt-launch-form">
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 24px;">
-              <div class="input-group">
-                <label>Candidate Full Name</label>
-                <input type="text" id="cbt-cand-name" class="input-control" value="Chidimma Okoli" required>
-              </div>
-
-              <div class="input-group">
-                <label>Examination / Reg. No.</label>
-                <input type="text" id="cbt-cand-reg" class="input-control" value="EBS-CBT-2026-08" required>
-              </div>
-
-              <div class="input-group">
-                <label>School Wing</label>
-                <select id="cbt-wing-select" class="input-control">
-                  <option value="secondary">Excellence College (IGCSE Track)</option>
-                  <option value="primary">Excellence Elementary (KS2 Track)</option>
-                </select>
-              </div>
-
-              <div class="input-group">
-                <label>Examination Subject</label>
-                <select id="cbt-subject-select" class="input-control">
-                  <option value="Mathematics">IGCSE Mathematics (Extended)</option>
-                  <option value="Physics">IGCSE Physics & Mechanics</option>
-                  <option value="Chemistry">IGCSE Chemistry</option>
-                  <option value="Biology">IGCSE Biology & Physiology</option>
-                  <option value="English">IGCSE English Language</option>
-                </select>
-              </div>
-            </div>
-
-            <div style="display: flex; justify-content: space-between; align-items: center; background: var(--cream-100); padding: 18px 24px; border-radius: 10px; border: 1px solid var(--slate-200);">
-              <div>
-                <strong style="color: var(--navy-900);">Examination Parameters:</strong>
-                <span style="font-size: 0.88rem; color: var(--slate-600); margin-left: 8px;">Timed Multiple-Choice • Negative Marking: None • Instant Solutions & Certificate</span>
-              </div>
-              <button type="submit" class="btn btn-gold">
-                🚀 Launch CBT Examination →
-              </button>
-            </div>
-          </form>
-        </div>
-
-        <!-- Live Examination Screen -->
-        <div id="cbt-exam-card" style="display:none;">
-          <div class="cbt-top-bar">
-            <div>
-              <h3 id="cbt-exam-title" style="color: var(--white); font-size: 1.15rem; margin: 0;"></h3>
-              <span id="cbt-candidate-display" style="font-size: 0.8rem; color: var(--slate-300);"></span>
-            </div>
-            <div class="cbt-timer-badge" id="cbt-timer">⏱️ 10:00</div>
-          </div>
-
-          <div class="cbt-body-grid">
-            <div class="cbt-question-area">
-              <div class="cbt-q-header">
-                <span class="cbt-q-num" id="cbt-q-number">Question 1 of 10</span>
-                <span style="font-size: 0.8rem; background: var(--gold-100); color: var(--gold-700); padding: 2px 8px; border-radius: 4px; font-weight: 700;">1 Mark</span>
-              </div>
-
-              <div class="cbt-q-text" id="cbt-q-text">Loading question text...</div>
-              <div class="cbt-options-list" id="cbt-options"></div>
-
-              <div class="cbt-nav-actions">
-                <button type="button" class="btn btn-outline-white" id="cbt-prev-btn" onclick="cbtPrevQuestion()" style="color: var(--navy-900); border-color: var(--slate-300);">← Previous</button>
-                <button type="button" class="btn btn-crimson" onclick="confirmSubmitCbt()">End & Submit Test</button>
-                <button type="button" class="btn btn-gold" id="cbt-next-btn" onclick="cbtNextQuestion()">Next Question →</button>
-              </div>
-            </div>
-
-            <!-- Question Palette Sidebar -->
-            <div class="cbt-palette-sidebar">
-              <h4 style="font-size: 0.95rem; color: var(--navy-900); margin-bottom: 4px;">Question Navigator</h4>
-              <p style="font-size: 0.78rem; color: var(--slate-500); margin-bottom: 12px;">Jump directly to any question number:</p>
-              <div class="cbt-palette-grid" id="cbt-palette"></div>
-            </div>
-          </div>
-        </div>
-
-        <div id="cbt-result-card" style="display:none; padding: 20px;"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════
-       9. PAYMENT RECEIPT UPLOAD & CLEARANCE SESSION
-       ═══════════════════════════════════════════════════════════════════ -->
-  <section class="payment-section" id="payment-section" style="padding: 80px 0; background: var(--cream-100);">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge">Bursary & Accounts Clearance</span>
-        <h2 class="section-title">School Fee Payment Receipt Upload & Tracking</h2>
-        <p class="section-subtitle">
-          Submit bank deposit tellers, electronic transfer receipts, or POS slips. Receive digital bursary clearance verification immediately.
-        </p>
-      </div>
-
-      <div class="receipt-upload-card" id="receipt-upload-card">
-        <form id="receipt-upload-form" enctype="multipart/form-data">
-          <!-- Dropzone -->
-          <div class="dropzone-box" id="receipt-dropzone">
-            <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            <h4 style="font-size: 1.15rem; color: var(--navy-900); margin-bottom: 4px;">Click to Browse or Drag & Drop Bank Receipt</h4>
-            <p style="font-size: 0.85rem; color: var(--slate-500); margin: 0;">Supports JPG, PNG, PDF up to 10MB (Official bank stamp/teller reference visible)</p>
-            <input type="file" id="receipt_file" name="receipt_file" style="display:none;" accept="image/*,.pdf">
-          </div>
-
-          <div id="receipt-file-preview" style="display:none; margin-bottom: 24px;"></div>
-
-          <div class="form-grid-2">
-            <div class="input-group">
-              <label>School Wing</label>
-              <select name="school_wing" class="input-control" required>
-                <option value="primary">Excellence Elementary School</option>
-                <option value="secondary" selected>Excellence College</option>
-              </select>
-            </div>
-
-            <div class="input-group">
-              <label>Student Admission Number</label>
-              <input type="text" name="admission_number" class="input-control" placeholder="e.g. NPS/2024/001 or SEC/2024/001" required>
-            </div>
-
-            <div class="input-group">
-              <label>Student Full Name</label>
-              <input type="text" name="student_name" class="input-control" placeholder="Student First & Last Name" required>
-            </div>
-
-            <div class="input-group">
-              <label>Class / Grade</label>
-              <input type="text" name="class_name" class="input-control" placeholder="e.g. Basic 4A or SSS 1A" required>
-            </div>
-
-            <div class="input-group">
-              <label>Fee Category</label>
-              <select name="fee_type" class="input-control" required>
-                <option value="Tuition Fee (Term 1)">Tuition Fee (Term 1)</option>
-                <option value="Tuition Fee (Term 2)">Tuition Fee (Term 2)</option>
-                <option value="Cambridge IGCSE Exam Fee">Cambridge IGCSE Exam Fee</option>
-                <option value="Boarding & Welfare Fee">Boarding & Welfare Fee</option>
-                <option value="School Uniforms & Books">School Uniforms & Books</option>
-                <option value="School Bus & Shuttle Service">School Bus & Shuttle Service</option>
-              </select>
-            </div>
-
-            <div class="input-group">
-              <label>Amount Paid (₦)</label>
-              <input type="number" name="amount" class="input-control" placeholder="e.g. 450000" required>
-            </div>
-
-            <div class="input-group">
-              <label>Bank Transfer Reference / Teller No.</label>
-              <input type="text" name="teller_ref" class="input-control" placeholder="e.g. TXN-GTB-883921" required>
-            </div>
-
-            <div class="input-group">
-              <label>Bank Name & Payment Date</label>
-              <input type="text" name="bank_name" class="input-control" placeholder="e.g. GTBank / Zenith Bank" required>
-            </div>
-          </div>
-
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-            <button type="submit" class="btn btn-gold" id="upload-submit-btn" style="padding: 14px 32px;">
-              📤 Submit Payment Receipt
-            </button>
-            <span style="font-size: 0.85rem; color: var(--slate-500);">Instant e-Clearance tracking token generated on submission.</span>
-          </div>
-        </form>
-
-        <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--slate-200);">
-          <h4 style="font-size: 1.1rem; color: var(--navy-900); margin-bottom: 12px;">Track Existing Payment Verification</h4>
-          <form id="receipt-track-form" style="display: flex; gap: 12px;">
-            <input type="text" id="track-ref-input" class="input-control" placeholder="Enter Transaction Reference (e.g. TXN-GTB-9982341)" style="flex: 1;" required>
-            <button type="submit" class="btn btn-navy" style="background: var(--navy-900); color: #fff; padding: 12px 24px;">
-              Track Status
-            </button>
-          </form>
-          <div id="track-result-output" style="display:none;"></div>
-        </div>
-      </div>
-
-      <div id="receipt-result-output" style="display:none; max-width: 860px; margin: 0 auto;"></div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════
-       10. ACADEMIC NEWSLETTERS & LATEST INFORMATION
+       6. ACADEMIC NEWSLETTERS & LATEST INFORMATION
        ═══════════════════════════════════════════════════════════════════ -->
   <section class="newsletter-notices-section" style="padding: 80px 0; background: var(--white);">
     <div class="container">
@@ -950,9 +609,10 @@
       <div class="footer-col">
         <h5>Portals & Services</h5>
         <ul>
-          <li><a href="#result-checker">Result Checker Portal</a></li>
-          <li><a href="#cbt-section">CBT Examination System</a></li>
-          <li><a href="#payment-section">Bursary Receipt Upload</a></li>
+          <li><a href="/result-checker">Result Checker Portal</a></li>
+          <li><a href="/cbt">CBT Examination System</a></li>
+          <li><a href="/payment-receipt">Bursary Receipt Upload</a></li>
+          <li><a href="/facilities">Campus Facilities & Showcase</a></li>
           <li><a href="/newsletter">Academic Newsletters</a></li>
           <li><a href="/events">Upcoming Events Calendar</a></li>
           <li><a href="/admin">Staff & Admin Dashboard</a></li>
