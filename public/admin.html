@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Backend & Directorate Portal | Excellence British Schools</title>
+  <meta name="description" content="Dual-category Central Administration, Super Admin Master Suite, and Moderator Portal for Excellence British Schools.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+</head>
+<body style="background: #f4f7fb; min-height: 100vh; display: flex; flex-direction: column;">
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       1. EXECUTIVE ADMIN HEADER
+       ═══════════════════════════════════════════════════════════════════ -->
+  <header class="site-header" style="background: var(--navy-950); color: #fff; border-bottom: 2px solid var(--gold-500); position: sticky; top: 0; z-index: 1000;">
+    <div class="container header-inner" style="padding: 12px 20px;">
+      <a href="/" class="brand-wrapper">
+        <div class="brand-crest">
+          <img src="/assets/images/crest.jpg" alt="Excellence British Schools Crest">
+        </div>
+        <div class="brand-details">
+          <h1 style="color: #fff; font-size: 1.25rem;">EXCELLENCE BRITISH SCHOOLS</h1>
+          <p class="latin-motto" style="color: var(--gold-300); font-size: 0.72rem;">Central Administration Directorate & Management Suite</p>
+        </div>
+      </a>
+
+      <!-- Current Logged In Profile & Role Controls -->
+      <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+        <div id="admin-user-pill" style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.06); padding: 6px 14px; border-radius: 30px; border: 1px solid rgba(197, 160, 89, 0.3);">
+          <span id="admin-role-badge" class="admin-role-badge superadmin">👑 SUPER ADMIN</span>
+          <div style="line-height: 1.2;">
+            <strong id="admin-display-name" style="font-size: 0.85rem; color: #fff;">Dr. Babatunde Alabi</strong>
+            <div id="admin-display-wing" style="font-size: 0.7rem; color: var(--gold-300);">Scope: All Wings (Elementary & College)</div>
+          </div>
+        </div>
+
+        <button type="button" id="btn-switch-account" class="btn btn-outline-white" style="padding: 6px 12px; font-size: 0.78rem;" title="Switch between Super Admin and Moderator">
+          ⚡ Switch Role
+        </button>
+
+        <a href="/" class="btn btn-gold" style="padding: 6px 14px; font-size: 0.78rem;" target="_blank">
+          Public Portal ↗
+        </a>
+
+        <button type="button" id="btn-logout" class="btn btn-crimson" style="padding: 6px 12px; font-size: 0.78rem;">
+          🚪 Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       2. PRIVILEGE & CATEGORY SECURITY RIBBON
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div id="privilege-ribbon" style="background: linear-gradient(90deg, #1e1b4b 0%, #0f172a 100%); color: #fff; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.82rem;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span id="ribbon-icon" style="font-size: 1.1rem;">👑</span>
+        <span id="ribbon-text"><strong>Super Admin Mode:</strong> Master system clearance active. Full access to Admin Management, Student Records, Bursary, Results & Settings.</span>
+      </div>
+      <div style="display: flex; gap: 16px; font-size: 0.75rem; color: var(--slate-300);">
+        <span>Security Layer: <strong>Role-Based Access Control (RBAC)</strong></span>
+        <span>Environment: <strong>Production Local (UK Standards)</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       3. MAIN DASHBOARD CONTENT AREA
+       ═══════════════════════════════════════════════════════════════════ -->
+  <main style="padding: 30px 0 60px 0; flex: 1;">
+    <div class="container">
+
+      <!-- Navigation Tabs -->
+      <div class="admin-tabs-nav" id="admin-tabs">
+        <button type="button" class="admin-tab-btn active" data-tab="overview">
+          📊 Telemetry & Overview
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="users" id="tab-btn-users">
+          👑 Staff & Moderators <span id="users-lock-pill" style="display:none; font-size:0.65rem; background:#fee2e2; color:#b91c1c; padding:1px 6px; border-radius:4px;">🔒 Super Admin</span>
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="students">
+          🎓 Student Directory & Enrolment
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="receipts">
+          💳 Bursary Reconciliation <span id="badge-pending-receipts" class="badge" style="background: var(--gold-500); color: #000; font-size: 0.7rem; padding: 1px 6px; border-radius: 10px; display:none;">0</span>
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="pins">
+          🔑 Scratch Cards & PINs
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="results">
+          📜 Results & Grading Desk
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="cbt">
+          💻 CBT Examination Bank
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="notices">
+          📢 Bulletins & Ticker Tape
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="settings" id="tab-btn-settings">
+          ⚙️ School Settings <span id="settings-lock-pill" style="display:none; font-size:0.65rem; background:#fee2e2; color:#b91c1c; padding:1px 6px; border-radius:4px;">🔒 Super Admin</span>
+        </button>
+      </div>
+
+      <!-- ─────────────────────────────────────────────────────────────
+           TAB 1: TELEMETRY & OVERVIEW
+           ───────────────────────────────────────────────────────────── -->
+      <section class="admin-tab-content active" id="tab-overview">
+        <!-- Telemetry Stats Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; margin-bottom: 28px;">
+          <div class="admin-card" style="padding: 18px; text-align: center; margin-bottom: 0;">
+            <span style="font-size: 0.72rem; text-transform: uppercase; color: var(--slate-500); font-weight: 700;">Total Enrolment</span>
+            <h3 id="stat-total-students" style="font-size: 1.8rem; color: var(--navy-900); margin-top: 4px;">--</h3>
+            <small style="color: var(--slate-400); font-size: 0.72rem;">Both Wings Active</small>
+          </div>
+
+          <div class="admin-card" style="padding: 18px; text-align: center; margin-bottom: 0; border-top: 3px solid var(--crimson-600);">
+            <span style="font-size: 0.72rem; text-transform: uppercase; color: var(--crimson-700); font-weight: 700;">Elementary Pupils</span>
+            <h3 id="stat-primary-students" style="font-size: 1.8rem; color: var(--crimson-700); margin-top: 4px;">--</h3>
+            <small style="color: var(--slate-400); font-size: 0.72rem;">Excellence Elementary</small>
+          </div>
+
+          <div class="admin-card" style="padding: 18px; text-align: center; margin-bottom: 0; border-top: 3px solid var(--navy-700);">
+            <span style="font-size: 0.72rem; text-transform: uppercase; color: var(--navy-700); font-weight: 700;">College Scholars</span>
+            <h3 id="stat-secondary-students" style="font-size: 1.8rem; color: var(--navy-700); margin-top: 4px;">--</h3>
+            <small style="color: var(--slate-400); font-size: 0.72rem;">Excellence College</small>
+          </div>
+
+          <div class="admin-card" style="padding: 18px; text-align: center; margin-bottom: 0; border-top: 3px solid #059669;">
+            <span style="font-size: 0.72rem; text-transform: uppercase; color: #059669; font-weight: 700;">Fee Slips Approved</span>
+            <h3 id="stat-approved-receipts" style="font-size: 1.8rem; color: #059669; margin-top: 4px;">--</h3>
+            <small id="stat-pending-sub" style="color: var(--gold-700); font-size: 0.72rem;">0 Pending Audit</small>
+          </div>
+
+          <div class="admin-card" style="padding: 18px; text-align: center; margin-bottom: 0; border-top: 3px solid var(--gold-600);">
+            <span style="font-size: 0.72rem; text-transform: uppercase; color: var(--gold-700); font-weight: 700;">CBT Exam Tests</span>
+            <h3 id="stat-cbt-count" style="font-size: 1.8rem; color: var(--gold-700); margin-top: 4px;">--</h3>
+            <small style="color: var(--slate-400); font-size: 0.72rem;">Completed Attempts</small>
+          </div>
+
+          <div class="admin-card" style="padding: 18px; text-align: center; margin-bottom: 0;">
+            <span style="font-size: 0.72rem; text-transform: uppercase; color: var(--slate-500); font-weight: 700;">PINs Used / Total</span>
+            <h3 id="stat-pins-count" style="font-size: 1.35rem; color: var(--navy-900); margin-top: 8px; font-family: var(--font-mono);">--</h3>
+            <small style="color: var(--slate-400); font-size: 0.72rem;">Scratch Card Pool</small>
+          </div>
+
+          <div class="admin-card" style="padding: 18px; text-align: center; margin-bottom: 0; border-top: 3px solid var(--navy-900);">
+            <span style="font-size: 0.72rem; text-transform: uppercase; color: var(--navy-900); font-weight: 700;">Admins & Moderators</span>
+            <h3 id="stat-admins-count" style="font-size: 1.8rem; color: var(--navy-900); margin-top: 4px;">--</h3>
+            <small id="stat-admins-breakdown" style="color: var(--slate-400); font-size: 0.72rem;">1 Super / 1 Mod</small>
+          </div>
+        </div>
+
+        <!-- Role Comparison Quick Guide -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px;">
+          <div style="background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%); color: #fff; padding: 24px; border-radius: 14px; border: 2px solid var(--gold-500);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+              <h4 style="color: var(--gold-300); font-size: 1.15rem; margin: 0;">👑 Super Admin (Main Admin)</h4>
+              <span class="admin-role-badge superadmin">Master Control</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--slate-300); line-height: 1.5; margin-bottom: 12px;">
+              The supreme administrative authority (Director General & Head of Schools). Holds master root privileges:
+            </p>
+            <ul style="font-size: 0.82rem; color: var(--slate-200); padding-left: 20px; line-height: 1.6;">
+              <li>Create, edit, and deactivate <strong>Staff & Moderator accounts</strong></li>
+              <li>Permanently <strong>delete student records</strong> and wipe erroneous scores</li>
+              <li>Configure <strong>School Session, Current Term, and Tuition Fees</strong></li>
+              <li>Approve Bursary receipts, generate PINs, and issue clearance certificates</li>
+              <li>Publish bulletin notices to the live homepage ticker tape</li>
+            </ul>
+          </div>
+
+          <div style="background: linear-gradient(135deg, #064e3b 0%, #022c22 100%); color: #fff; padding: 24px; border-radius: 14px; border: 2px solid #34d399;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+              <h4 style="color: #6ee7b7; font-size: 1.15rem; margin: 0;">🛡️ Staff Moderator</h4>
+              <span class="admin-role-badge moderator">Operational Clearance</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--slate-300); line-height: 1.5; margin-bottom: 12px;">
+              Operational and wing supervisors (Academic Deans, Housemasters, Bursar Clerks):
+            </p>
+            <ul style="font-size: 0.82rem; color: var(--slate-200); padding-left: 20px; line-height: 1.6;">
+              <li>Enrol new students and update student profiles</li>
+              <li>Audit bank receipts and approve student fee payments</li>
+              <li>Record subject assessment scores and view terminal results</li>
+              <li>Manage CBT question banks and supervise online quiz attempts</li>
+              <li><strong style="color: #fca5a5;">Protected:</strong> Cannot delete students, modify other staff accounts, or alter school core settings.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Quick Launch Shortcuts -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <h3 style="font-size: 1.25rem; color: var(--navy-900); margin: 0;">Quick Directorate Actions</h3>
+              <p style="font-size: 0.82rem; color: var(--slate-500); margin: 4px 0 0 0;">Common workflows for managing Excellence British Schools operations</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button type="button" class="btn btn-gold" onclick="openEnrolModal()">
+              + Enrol New Student
+            </button>
+            <button type="button" class="btn btn-navy" onclick="openPinModal()">
+              + Generate Scratch Card PIN
+            </button>
+            <button type="button" class="btn btn-crimson" onclick="openScoreModal()">
+              + Record Terminal Score
+            </button>
+            <button type="button" class="btn btn-outline-white" style="color: var(--navy-900); border-color: var(--slate-300);" onclick="openNoticeModal()">
+              + Post Bulletin Headline
+            </button>
+            <button type="button" class="btn btn-outline-white superadmin-only-btn" style="color: var(--navy-900); border-color: var(--gold-500);" onclick="openUserModal()">
+              + Create Staff Moderator (Super Admin)
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────────────────────────────────────────
+           TAB 2: ADMIN & MODERATOR USERS (SUPER ADMIN ONLY)
+           ───────────────────────────────────────────────────────────── -->
+      <section class="admin-tab-content" id="tab-users">
+        <!-- Locked View for Moderator -->
+        <div id="users-locked-view" style="display:none; background: #fff1f2; border: 2px dashed #f43f5e; border-radius: 14px; padding: 40px; text-align: center;">
+          <span style="font-size: 3rem;">🔒</span>
+          <h3 style="color: #9f1239; margin-top: 10px;">Access Restricted: Super Admin (Main Admin) Only</h3>
+          <p style="color: #881337; max-width: 550px; margin: 8px auto 20px auto; font-size: 0.9rem;">
+            Staff and Moderator accounts are strictly managed by the Super Admin (Director General). As a Moderator, you do not have permission to view, create, or modify administrator credentials.
+          </p>
+          <button type="button" class="btn btn-gold" onclick="switchUserRole('admin', 'admin123')">
+            ⚡ Switch to Super Admin Account (Dr. Babatunde Alabi)
+          </button>
+        </div>
+
+        <!-- Super Admin View -->
+        <div id="users-active-view">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div>
+                <h3 style="font-size: 1.3rem; color: var(--navy-900); margin: 0;">Directorate Personnel & Moderator Registry</h3>
+                <p style="font-size: 0.82rem; color: var(--slate-500); margin: 4px 0 0 0;">Provision and govern Super Admins and Staff Moderators across Elementary and College wings.</p>
+              </div>
+              <button type="button" class="btn btn-gold" onclick="openUserModal()">
+                + Create New Admin / Moderator
+              </button>
+            </div>
+
+            <table class="scores-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Full Name</th>
+                  <th>Username</th>
+                  <th>Role Category</th>
+                  <th>Wing Scope</th>
+                  <th>Account Created</th>
+                  <th>Super Admin Actions</th>
+                </tr>
+              </thead>
+              <tbody id="users-table-body">
+                <tr><td colspan="7" style="text-align:center; padding: 20px;">Loading administrative personnel...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────────────────────────────────────────
+           TAB 3: STUDENT DIRECTORY & ENROLMENT
+           ───────────────────────────────────────────────────────────── -->
+      <section class="admin-tab-content" id="tab-students">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <h3 style="font-size: 1.3rem; color: var(--navy-900); margin: 0;">Student Enrolment Registry</h3>
+              <p style="font-size: 0.82rem; color: var(--slate-500); margin: 4px 0 0 0;">Complete pupil roster for Excellence Elementary and Excellence College scholars.</p>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+              <input type="text" id="students-search-input" class="input-control" placeholder="Search name or admission no..." style="width: 220px; padding: 7px 12px; font-size: 0.82rem;">
+              <select id="students-wing-filter" class="input-control" style="width: 160px; padding: 7px 12px; font-size: 0.82rem;">
+                <option value="all">🌟 Both Wings</option>
+                <option value="primary">🧸 Elementary Only</option>
+                <option value="secondary">🏛️ College Only</option>
+              </select>
+              <button type="button" class="btn btn-gold" onclick="openEnrolModal()">
+                + Enrol Student
+              </button>
+            </div>
+          </div>
+
+          <table class="scores-table">
+            <thead>
+              <tr>
+                <th>Wing</th>
+                <th>Admission No.</th>
+                <th>Student Full Name</th>
+                <th>Class</th>
+                <th>Gender</th>
+                <th>Parent / Contact</th>
+                <th>House</th>
+                <th>Management Action</th>
+              </tr>
+            </thead>
+            <tbody id="students-table-body">
+              <tr><td colspan="8" style="text-align:center; padding: 20px;">Loading student directory...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────────────────────────────────────────
+           TAB 4: BURSARY RECONCILIATION
+           ───────────────────────────────────────────────────────────── -->
+      <section class="admin-tab-content" id="tab-receipts">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <h3 style="font-size: 1.3rem; color: var(--navy-900); margin: 0;">Bursary Payment Reconciliation & Bank Slips</h3>
+              <p style="font-size: 0.82rem; color: var(--slate-500); margin: 4px 0 0 0;">Audit uploaded bank payment receipts and issue digital bursary clearance passes.</p>
+            </div>
+            <a href="/payment-receipt" target="_blank" class="btn btn-outline-white" style="color: var(--navy-900); border-color: var(--slate-300);">
+              Public Upload Slip ↗
+            </a>
+          </div>
+
+          <table class="scores-table">
+            <thead>
+              <tr>
+                <th>Ref / Teller</th>
+                <th>Student & Class</th>
+                <th>Wing</th>
+                <th>Fee Type & Bank</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Auditor Verification</th>
+              </tr>
+            </thead>
+            <tbody id="receipts-table-body">
+              <tr><td colspan="7" style="text-align:center; padding: 20px;">Loading bursary receipts...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────────────────────────────────────────
+           TAB 5: SCRATCH CARDS & PINS
+           ───────────────────────────────────────────────────────────── -->
+      <section class="admin-tab-content" id="tab-pins">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <h3 style="font-size: 1.3rem; color: var(--navy-900); margin: 0;">Scratch Card PIN Pool & Usage Audit</h3>
+              <p style="font-size: 0.82rem; color: var(--slate-500); margin: 4px 0 0 0;">Issue, monitor, and reset 10-digit cryptographic access PINs for student result verification.</p>
+            </div>
+            <button type="button" class="btn btn-gold" onclick="openPinModal()">
+              + Generate New PIN
+            </button>
+          </div>
+
+          <table class="scores-table">
+            <thead>
+              <tr>
+                <th>Scratch Card PIN</th>
+                <th>Assigned Student</th>
+                <th>Admission No.</th>
+                <th>Wing</th>
+                <th>Usage Counter</th>
+                <th>Status</th>
+                <th>Audit Action</th>
+              </tr>
+            </thead>
+            <tbody id="pins-table-body">
+              <tr><td colspan="7" style="text-align:center; padding: 20px;">Loading PIN pool...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────────────────────────────────────────
+           TAB 6: RESULTS & GRADING DESK
+           ───────────────────────────────────────────────────────────── -->
+      <section class="admin-tab-content" id="tab-results">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <h3 style="font-size: 1.3rem; color: var(--navy-900); margin: 0;">Academic Assessment & Grading Desk</h3>
+              <p style="font-size: 0.82rem; color: var(--slate-500); margin: 4px 0 0 0;">Inspect and record student continuous assessment scores (CA1 20%, CA2 20%, Exam 60%).</p>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <select id="results-wing-filter" class="input-control" style="width: 160px; padding: 7px 12px; font-size: 0.82rem;">
+                <option value="all">🌟 Both Wings</option>
+                <option value="primary">🧸 Elementary Only</option>
+                <option value="secondary">🏛️ College Only</option>
+              </select>
+              <button type="button" class="btn btn-gold" onclick="openScoreModal()">
+                + Record Subject Score
+              </button>
+            </div>
+          </div>
+
+          <table class="scores-table">
+            <thead>
+              <tr>
+                <th>Student Name</th>
+                <th>Admission No.</th>
+                <th>Class</th>
+                <th>Subject</th>
+                <th>CA 1 (20)</th>
+                <th>CA 2 (20)</th>
+                <th>Exam (60)</th>
+                <th>Total (100)</th>
+                <th>Grade</th>
+                <th>Remark</th>
+              </tr>
+            </thead>
+            <tbody id="results-table-body">
+              <tr><td colspan="10" style="text-align:center; padding: 20px;">Loading terminal assessment marks...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────────────────────────────────────────
+           TAB 7: CBT EXAMINATION BANK
+           ───────────────────────────────────────────────────────────── -->
+      <section class="admin-tab-content" id="tab-cbt">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <h3 style="font-size: 1.3rem; color: var(--navy-900); margin: 0;">CBT Question Bank & Completed Candidate Tests</h3>
+              <p style="font-size: 0.82rem; color: var(--slate-500); margin: 4px 0 0 0;">Author multiple choice questions and review real-time student quiz submissions.</p>
+            </div>
+            <button type="button" class="btn btn-gold" onclick="openCbtModal()">
+              + Add New Question
+            </button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr; gap: 24px;">
+            <div>
+              <h4 style="color: var(--navy-900); margin-bottom: 12px; font-size: 1.1rem;">Live Question Bank</h4>
+              <div id="cbt-questions-list" style="display: flex; flex-direction: column; gap: 12px;">
+                <p>Loading questions...</p>
+              </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+              <h4 style="color: var(--navy-900); margin-bottom: 12px; font-size: 1.1rem;">Candidate CBT Examination Submissions</h4>
+              <table class="scores-table">
+                <thead>
+                  <tr>
+                    <th>Candidate Name</th>
+                    <th>Reg No.</th>
+                    <th>Wing</th>
+                    <th>Subject</th>
+                    <th>Score</th>
+                    <th>Percentage</th>
+                    <th>Result</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="cbt-attempts-table-body">
+                  <tr><td colspan="8" style="text-align:center; padding: 16px;">Loading candidate attempts...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────────────────────────────────────────
+           TAB 8: BULLETINS & TICKER TAPE (PUBLISH HEADLINE WITH IMAGES & VIDEOS)
+           ───────────────────────────────────────────────────────────── -->
+      <section class="admin-tab-content" id="tab-notices">
+        
+        <!-- INLINE PUBLISHER COMPOSER: PUBLISH BULLETIN TICKER HEADLINE -->
+        <div class="admin-card" style="border: 2px solid var(--gold-500); background: #ffffff; box-shadow: var(--shadow-md);">
+          <div class="admin-card-header" style="border-bottom: 2px solid var(--slate-100); margin-bottom: 22px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 1.3rem;">📢</span>
+                <h3 style="font-size: 1.35rem; color: var(--navy-900); margin: 0;">Publish Bulletin Ticker Headline</h3>
+                <span class="badge" style="background: var(--navy-900); color: var(--gold-300); font-size: 0.72rem; padding: 3px 8px; border-radius: 4px; font-weight: 700;">
+                  📷 Photo & 🎥 Video Enabled
+                </span>
+              </div>
+              <p style="font-size: 0.84rem; color: var(--slate-500); margin: 6px 0 0 0;">
+                Broadcast official school alerts, exam dates, sports victories, or terminal updates directly to the marquee ticker tape at the top of the public website.
+              </p>
+            </div>
+          </div>
+
+          <form id="form-inline-notice">
+            <!-- Row 1: Target Wing & Category -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+              <div class="input-group">
+                <label style="font-weight: 700; color: var(--navy-900); font-size: 0.85rem;">Target School Wing</label>
+                <select id="inline-notice-wing" class="input-control" style="background: #fff;">
+                  <option value="all">🌟 Both Wings (All Excellence British Schools)</option>
+                  <option value="primary">🧸 Excellence Elementary School</option>
+                  <option value="secondary">🏛️ Excellence College</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label style="font-weight: 700; color: var(--navy-900); font-size: 0.85rem;">Category Tag</label>
+                <input type="text" id="inline-notice-category" class="input-control" placeholder="e.g. Terminal Reports, Cambridge Exams, Inter-House Sports, Bursary Clearance" value="Official Bulletin" required>
+              </div>
+            </div>
+
+            <!-- Row 2: Headline Title -->
+            <div class="input-group" style="margin-bottom: 16px;">
+              <label style="font-weight: 700; color: var(--navy-900); font-size: 0.85rem;">
+                Headline Title <span style="font-size: 0.75rem; color: var(--slate-400); font-weight: 400;">(Appears in the scrolling marquee at the very top of the homepage)</span>
+              </label>
+              <input type="text" id="inline-notice-title" class="input-control" placeholder="e.g. Cambridge IGCSE Mock Examination Schedules Now Available in CBT Portal" required style="font-weight: 600; font-size: 0.95rem;">
+            </div>
+
+            <!-- Row 3: Announcement Story -->
+            <div class="input-group" style="margin-bottom: 18px;">
+              <label style="font-weight: 700; color: var(--navy-900); font-size: 0.85rem;">Detailed Announcement Text</label>
+              <textarea id="inline-notice-content" class="input-control" rows="3" placeholder="Full announcement details for parents, pupils, scholars, and staff..."></textarea>
+            </div>
+
+            <!-- Row 4: MULTIMEDIA ATTACHMENT SUITE (IMAGES & VIDEOS) -->
+            <div style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 2px dashed #94a3b8; border-radius: 14px; padding: 22px; margin-bottom: 22px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 1.2rem;">📁</span>
+                  <strong style="color: var(--navy-900); font-size: 0.95rem;">Attach Images or Video Broadcast (Upload from Device)</strong>
+                </div>
+                <span style="font-size: 0.74rem; color: var(--slate-500); background: #fff; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--slate-200);">
+                  Supports JPG, PNG, WEBP, GIF, MP4, WEBM, MOV (Max: 100MB)
+                </span>
+              </div>
+
+              <!-- Drag and Drop Dropzone -->
+              <div class="media-dropzone" id="inline-media-dropzone" onclick="document.getElementById('inline-notice-file').click()">
+                <input type="file" id="inline-notice-file" accept="image/*,video/mp4,video/webm,video/ogg,video/quicktime" style="display: none;">
+                <div style="font-size: 2.2rem; margin-bottom: 6px;">📤</div>
+                <div style="font-weight: 700; color: var(--navy-900); font-size: 0.95rem;">
+                  Click to Browse or Drag & Drop Image / Video File Here
+                </div>
+                <p style="font-size: 0.78rem; color: var(--slate-500); margin: 4px 0 0 0;">
+                  Upload high-resolution event flyers, campus photography, sports match clips, or student presentations
+                </p>
+              </div>
+
+              <!-- Live Media Preview Screen -->
+              <div id="inline-media-preview-box" style="display: none; margin-top: 16px; background: #020617; border-radius: 10px; padding: 12px; border: 2px solid var(--gold-500);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                  <span id="inline-preview-meta" style="font-size: 0.8rem; font-weight: 700; color: var(--gold-300);"></span>
+                  <button type="button" class="btn btn-crimson" onclick="clearInlineNoticeMedia()" style="padding: 2px 10px; font-size: 0.72rem;">
+                    ✕ Clear Attachment
+                  </button>
+                </div>
+                <div id="inline-preview-render" style="max-height: 280px; display: flex; justify-content: center; align-items: center; overflow: hidden; border-radius: 6px;">
+                  <!-- Dynamic Image or Video Preview -->
+                </div>
+              </div>
+
+              <!-- Quick Attachment From School Campus Library -->
+              <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--slate-200);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+                  <span style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; color: var(--slate-600); letter-spacing: 0.5px;">
+                    ⚡ Or Attach From Campus Photo Library With 1-Click:
+                  </span>
+                  <button type="button" class="btn btn-outline-white" onclick="attachSampleVideo()" style="padding: 3px 10px; font-size: 0.72rem; color: #0284c7; border-color: #bae6fd;">
+                    🎥 Attach Sample Video Clip
+                  </button>
+                </div>
+
+                <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px;" id="campus-photo-ribbon">
+                  <div onclick="selectPresetMedia('/assets/images/college/college_assembly.jpg', 'image', 'Collegiate Morning Assembly')" title="Collegiate Morning Assembly" style="cursor: pointer; text-align: center;">
+                    <img src="/assets/images/college/college_assembly.jpg" alt="Assembly" class="quick-media-thumb">
+                    <small style="display:block; font-size:0.65rem; color:var(--slate-500); margin-top:2px;">Assembly</small>
+                  </div>
+                  <div onclick="selectPresetMedia('/assets/images/college/college_sports.jpg', 'image', 'Inter-House Sports Festival')" title="Inter-House Sports Festival" style="cursor: pointer; text-align: center;">
+                    <img src="/assets/images/college/college_sports.jpg" alt="Sports" class="quick-media-thumb">
+                    <small style="display:block; font-size:0.65rem; color:var(--slate-500); margin-top:2px;">Sports</small>
+                  </div>
+                  <div onclick="selectPresetMedia('/assets/images/college/college_sci_lab.jpg', 'image', 'Cambridge Science Lab')" title="Cambridge Science Lab" style="cursor: pointer; text-align: center;">
+                    <img src="/assets/images/college/college_sci_lab.jpg" alt="Science Lab" class="quick-media-thumb">
+                    <small style="display:block; font-size:0.65rem; color:var(--slate-500); margin-top:2px;">Science Lab</small>
+                  </div>
+                  <div onclick="selectPresetMedia('/assets/images/elementary/elementary_assembly.jpg', 'image', 'Elementary School Quadrangle')" title="Elementary School Quadrangle" style="cursor: pointer; text-align: center;">
+                    <img src="/assets/images/elementary/elementary_assembly.jpg" alt="Elementary Assembly" class="quick-media-thumb">
+                    <small style="display:block; font-size:0.65rem; color:var(--slate-500); margin-top:2px;">Elementary</small>
+                  </div>
+                  <div onclick="selectPresetMedia('/assets/images/elementary/elementary_classroom.jpg', 'image', 'Elementary Phonics Classroom')" title="Elementary Classroom" style="cursor: pointer; text-align: center;">
+                    <img src="/assets/images/elementary/elementary_classroom.jpg" alt="Classroom" class="quick-media-thumb">
+                    <small style="display:block; font-size:0.65rem; color:var(--slate-500); margin-top:2px;">Classroom</small>
+                  </div>
+                  <div onclick="selectPresetMedia('/assets/images/college/college_cultural.jpg', 'image', 'Collegiate Cultural Day')" title="Cultural Splendour" style="cursor: pointer; text-align: center;">
+                    <img src="/assets/images/college/college_cultural.jpg" alt="Cultural Day" class="quick-media-thumb">
+                    <small style="display:block; font-size:0.65rem; color:var(--slate-500); margin-top:2px;">Cultural Day</small>
+                  </div>
+                </div>
+
+                <input type="hidden" id="inline-preset-media-url" value="">
+                <input type="hidden" id="inline-preset-media-type" value="">
+              </div>
+            </div>
+
+            <!-- Row 5: Broadcast Options & Action -->
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; padding-top: 10px;">
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 0.88rem; cursor: pointer; color: var(--navy-900); font-weight: 600;">
+                <input type="checkbox" id="inline-notice-pinned" checked style="width: 18px; height: 18px;">
+                <span>📌 Pin Headline to Homepage Live Ticker Tape (Continuous Marquee)</span>
+              </label>
+
+              <button type="submit" id="btn-broadcast-headline" class="btn btn-gold" style="padding: 10px 24px; font-size: 0.92rem; font-weight: 700;">
+                📢 Broadcast Bulletin Headline Now →
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- BROADCAST STREAM: CURRENTLY ACTIVE HEADLINES -->
+        <div class="admin-card" style="margin-top: 24px;">
+          <div class="admin-card-header">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="status-dot green"></span>
+                <h3 style="font-size: 1.25rem; color: var(--navy-900); margin: 0;">Currently Broadcasting on Homepage Ticker Tape</h3>
+              </div>
+              <p style="font-size: 0.82rem; color: var(--slate-500); margin: 4px 0 0 0;">
+                Active bulletins streaming across the website. Scholars and parents can click any headline to view the photo or watch the video broadcast.
+              </p>
+            </div>
+            <button type="button" class="btn btn-outline-white" onclick="loadNotices()" style="font-size: 0.8rem; padding: 6px 14px;">
+              🔄 Refresh Ticker Stream
+            </button>
+          </div>
+
+          <div id="notices-list" style="display: flex; flex-direction: column; gap: 16px;">
+            <p>Loading active notices...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────────────────────────────────────────
+           TAB 9: SCHOOL SETTINGS (SUPER ADMIN ONLY)
+           ───────────────────────────────────────────────────────────── -->
+      <section class="admin-tab-content" id="tab-settings">
+        <!-- Locked View for Moderator -->
+        <div id="settings-locked-view" style="display:none; background: #fff1f2; border: 2px dashed #f43f5e; border-radius: 14px; padding: 40px; text-align: center;">
+          <span style="font-size: 3rem;">🔒</span>
+          <h3 style="color: #9f1239; margin-top: 10px;">Master Configuration Locked: Super Admin Only</h3>
+          <p style="color: #881337; max-width: 550px; margin: 8px auto 20px auto; font-size: 0.9rem;">
+            School term dates, academic session boundaries, and fee schedules are master policies regulated exclusively by the Super Admin.
+          </p>
+        </div>
+
+        <!-- Super Admin Active View -->
+        <div id="settings-active-view">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div>
+                <h3 style="font-size: 1.3rem; color: var(--navy-900); margin: 0;">School Configuration & Academic Session Parameters</h3>
+                <p style="font-size: 0.82rem; color: var(--slate-500); margin: 4px 0 0 0;">Master parameters for Excellence British Schools.</p>
+              </div>
+            </div>
+
+            <form id="settings-form" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div class="input-group">
+                <label>Academic Session</label>
+                <input type="text" id="setting-session" class="input-control" value="2025/2026" required>
+              </div>
+
+              <div class="input-group">
+                <label>Active Term</label>
+                <select id="setting-term" class="input-control">
+                  <option value="First Term">First Term (Michaelmas)</option>
+                  <option value="Second Term">Second Term (Lent)</option>
+                  <option value="Third Term">Third Term (Trinity)</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Elementary School Tuition (Termly)</label>
+                <input type="number" id="setting-fee-primary" class="input-control" value="385000" required>
+              </div>
+
+              <div class="input-group">
+                <label>College Tuition (Termly)</label>
+                <input type="number" id="setting-fee-secondary" class="input-control" value="650000" required>
+              </div>
+
+              <div class="input-group" style="grid-column: 1 / -1;">
+                <label>Official School Accreditations</label>
+                <input type="text" id="setting-accreditations" class="input-control" value="DfE Standard Registered | British Council Partner | Cambridge International Assessment Centre | COBIS Accredited">
+              </div>
+
+              <div style="grid-column: 1 / -1; text-align: right;">
+                <button type="submit" class="btn btn-gold">
+                  💾 Save Master Settings
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       4. MODALS & DIALOGS
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <!-- Modal: Role Switcher & Login -->
+  <div class="admin-modal-overlay" id="modal-auth">
+    <div class="admin-modal-box" style="max-width: 520px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="color: var(--navy-900); font-size: 1.3rem; margin: 0;">Directorate Staff Login</h3>
+        <button type="button" class="btn-close-modal" onclick="closeModal('modal-auth')" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">✕</button>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <label style="font-size: 0.76rem; font-weight: 700; text-transform: uppercase; color: var(--slate-500); display: block; margin-bottom: 8px;">
+          ⚡ Instant 1-Click Role Switcher (For Demo Testing):
+        </label>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <button type="button" class="btn btn-gold" onclick="switchUserRole('admin', 'admin123')" style="font-size: 0.78rem; text-align: left; padding: 10px 12px;">
+            <strong>👑 Super Admin</strong><br>
+            <small style="font-weight: 400; opacity: 0.85;">Dr. Babatunde Alabi</small>
+          </button>
+          <button type="button" class="btn btn-navy" onclick="switchUserRole('moderator', 'mod123')" style="font-size: 0.78rem; text-align: left; padding: 10px 12px;">
+            <strong>🛡️ Staff Moderator</strong><br>
+            <small style="font-weight: 400; opacity: 0.85;">Mrs. Folashade Adeleke</small>
+          </button>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin: 16px 0; color: var(--slate-400); font-size: 0.8rem; position: relative;">
+        <span>OR ENTER CREDENTIALS MANUALLY</span>
+      </div>
+
+      <form id="form-login">
+        <div class="input-group" style="margin-bottom: 14px;">
+          <label>Username</label>
+          <input type="text" id="login-username" class="input-control" placeholder="e.g. admin or moderator" required>
+        </div>
+        <div class="input-group" style="margin-bottom: 20px;">
+          <label>Password</label>
+          <input type="password" id="login-password" class="input-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-crimson" style="width: 100%;">
+          🔐 Authenticate into Directorate
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Create / Edit Staff Admin (Super Admin Only) -->
+  <div class="admin-modal-overlay" id="modal-user">
+    <div class="admin-modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="color: var(--navy-900); font-size: 1.3rem; margin: 0;">Provision Staff or Moderator Account</h3>
+        <button type="button" onclick="closeModal('modal-user')" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">✕</button>
+      </div>
+
+      <form id="form-user">
+        <div class="input-group" style="margin-bottom: 14px;">
+          <label>Full Name & Title</label>
+          <input type="text" id="user-fullname" class="input-control" placeholder="e.g. Mrs. Folashade Adeleke" required>
+        </div>
+        <div class="input-group" style="margin-bottom: 14px;">
+          <label>Username (Login Handle)</label>
+          <input type="text" id="user-username" class="input-control" placeholder="e.g. elementary_mod" required>
+        </div>
+        <div class="input-group" style="margin-bottom: 14px;">
+          <label>Password</label>
+          <input type="password" id="user-password" class="input-control" placeholder="••••••••" required>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px;">
+          <div class="input-group">
+            <label>Admin Category / Role</label>
+            <select id="user-role" class="input-control">
+              <option value="moderator">🛡️ Staff Moderator</option>
+              <option value="superadmin">👑 Super Admin (Main Admin)</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Wing Jurisdiction</label>
+            <select id="user-wing" class="input-control">
+              <option value="all">🌟 All Wings (Both)</option>
+              <option value="primary">🧸 Excellence Elementary</option>
+              <option value="secondary">🏛️ Excellence College</option>
+            </select>
+          </div>
+        </div>
+        <div style="text-align: right;">
+          <button type="submit" class="btn btn-gold">
+            ✓ Create Account
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Enrol Student -->
+  <div class="admin-modal-overlay" id="modal-enrol">
+    <div class="admin-modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="color: var(--navy-900); font-size: 1.3rem; margin: 0;">Enrol New Student</h3>
+        <button type="button" onclick="closeModal('modal-enrol')" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">✕</button>
+      </div>
+
+      <form id="form-enrol">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <div class="input-group">
+            <label>School Wing</label>
+            <select id="enrol-wing" class="input-control">
+              <option value="primary">🧸 Excellence Elementary School</option>
+              <option value="secondary">🏛️ Excellence College</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Admission Number</label>
+            <input type="text" id="enrol-adm" class="input-control" placeholder="e.g. NPS/2024/005 or SEC/2024/005" required>
+          </div>
+        </div>
+
+        <div class="input-group" style="margin-bottom: 14px;">
+          <label>Student Full Name</label>
+          <input type="text" id="enrol-name" class="input-control" placeholder="e.g. Oluwaseun Adeleke" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <div class="input-group">
+            <label>Class / Grade</label>
+            <input type="text" id="enrol-class" class="input-control" placeholder="e.g. Basic 4A or SSS 1A" required>
+          </div>
+          <div class="input-group">
+            <label>Gender</label>
+            <select id="enrol-gender" class="input-control">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <div class="input-group">
+            <label>Parent / Guardian Name</label>
+            <input type="text" id="enrol-parent" class="input-control" placeholder="e.g. Chief Adeleke">
+          </div>
+          <div class="input-group">
+            <label>House</label>
+            <select id="enrol-house" class="input-control">
+              <option value="Churchill">Churchill (Gold)</option>
+              <option value="Newton">Newton (Blue)</option>
+              <option value="Shakespeare">Shakespeare (Crimson)</option>
+              <option value="Nightingale">Nightingale (Emerald)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="text-align: right;">
+          <button type="submit" class="btn btn-gold">
+            ✓ Complete Enrolment & Issue Scratch Card PIN
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Generate Scratch Card PIN -->
+  <div class="admin-modal-overlay" id="modal-pin">
+    <div class="admin-modal-box" style="max-width: 500px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="color: var(--navy-900); font-size: 1.3rem; margin: 0;">Generate Scratch Card PIN</h3>
+        <button type="button" onclick="closeModal('modal-pin')" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">✕</button>
+      </div>
+
+      <form id="form-pin">
+        <div class="input-group" style="margin-bottom: 14px;">
+          <label>Assign to Student</label>
+          <select id="pin-student-select" class="input-control" required>
+            <option value="">Select Student...</option>
+          </select>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px;">
+          <div class="input-group">
+            <label>Session</label>
+            <input type="text" id="pin-session" class="input-control" value="2025/2026">
+          </div>
+          <div class="input-group">
+            <label>Max Uses Allowed</label>
+            <input type="number" id="pin-max-uses" class="input-control" value="5" min="1" max="20">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%;">
+          🔑 Mint Cryptographic PIN
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Record Result Score (With Subject Dropdown for Elementary & College) -->
+  <div class="admin-modal-overlay" id="modal-score">
+    <div class="admin-modal-box" style="max-width: 620px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <div>
+          <h3 style="color: var(--navy-900); font-size: 1.3rem; margin: 0;">Record Terminal Subject Score</h3>
+          <p style="font-size: 0.8rem; color: var(--slate-500); margin: 4px 0 0 0;">Enter continuous assessment (CA) and terminal examination scores for academic report sheets</p>
+        </div>
+        <button type="button" onclick="closeModal('modal-score')" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--slate-400);">✕</button>
+      </div>
+
+      <form id="form-score">
+        <!-- Student Selection & Wing Badge -->
+        <div class="input-group" style="margin-bottom: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <label style="font-weight: 700; color: var(--navy-900); font-size: 0.86rem; margin: 0;">Student</label>
+            <span id="score-student-wing-badge" style="display: none; font-size: 0.72rem; padding: 2px 8px; border-radius: 4px; font-weight: 700;"></span>
+          </div>
+          <select id="score-student-select" class="input-control" required style="font-size: 0.88rem;">
+            <option value="">Select Student...</option>
+          </select>
+        </div>
+
+        <!-- Subject Dropdown for Both Elementary & College -->
+        <div class="input-group" style="margin-bottom: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 6px;">
+            <label style="font-weight: 700; color: var(--navy-900); font-size: 0.86rem; margin: 0;">
+              Subject <span style="font-size: 0.75rem; color: var(--slate-500); font-weight: 400;">(Select from Elementary & College Curriculum)</span>
+            </label>
+            <!-- Quick Wing Filter Pills -->
+            <div style="display: flex; gap: 4px;" id="score-wing-filter-pills">
+              <button type="button" class="btn-filter-pill active" id="pill-filter-all" onclick="filterScoreSubjectDropdown('all')">
+                All (Both Wings)
+              </button>
+              <button type="button" class="btn-filter-pill" id="pill-filter-primary" onclick="filterScoreSubjectDropdown('primary')">
+                🧸 Elementary
+              </button>
+              <button type="button" class="btn-filter-pill" id="pill-filter-secondary" onclick="filterScoreSubjectDropdown('secondary')">
+                🏛️ College
+              </button>
+            </div>
+          </div>
+
+          <select id="score-subject" class="input-control" required style="font-size: 0.88rem; font-weight: 600; color: var(--navy-900);">
+            <option value="">-- Choose Subject from List --</option>
+            <optgroup label="🧸 EXCELLENCE ELEMENTARY SCHOOL (Primary & Nursery)" id="optgroup-score-primary">
+              <option value="Mathematics & Numeracy">Mathematics & Numeracy</option>
+              <option value="English Language & Grammar">English Language & Grammar</option>
+              <option value="Jolly Phonics & Diction">Jolly Phonics & Diction</option>
+              <option value="Basic Science & Technology">Basic Science & Technology</option>
+              <option value="Social Studies & History">Social Studies & History</option>
+              <option value="Quantitative Reasoning">Quantitative Reasoning</option>
+              <option value="Verbal Reasoning">Verbal Reasoning</option>
+              <option value="Computer Science & Robotics">Computer Science & Robotics</option>
+              <option value="Creative Arts & Craft">Creative Arts & Craft</option>
+              <option value="French & Modern Languages">French & Modern Languages</option>
+              <option value="Agricultural Science (Primary)">Agricultural Science (Primary)</option>
+              <option value="Civic Education">Civic Education</option>
+              <option value="Music & Rhythm">Music & Rhythm</option>
+              <option value="Physical & Health Education (PHE)">Physical & Health Education (PHE)</option>
+              <option value="Christian Religious Studies (CRS)">Christian Religious Studies (CRS)</option>
+              <option value="Islamic Religious Studies (IRS)">Islamic Religious Studies (IRS)</option>
+              <option value="Handwriting & Penmanship">Handwriting & Penmanship</option>
+              <option value="Early Numeracy & Counting">Early Numeracy & Counting (Nursery)</option>
+              <option value="Rhymes, Poems & Roleplay">Rhymes, Poems & Roleplay (Nursery)</option>
+              <option value="Health Habits & Personal Care">Health Habits & Personal Care (Nursery)</option>
+              <option value="Social & Emotional Development">Social & Emotional Development (Nursery)</option>
+            </optgroup>
+            <optgroup label="🏛️ EXCELLENCE COLLEGE (Junior & Senior Secondary / IGCSE)" id="optgroup-score-secondary">
+              <option value="Mathematics (IGCSE Standard)">Mathematics (IGCSE Standard)</option>
+              <option value="Further Mathematics">Further Mathematics</option>
+              <option value="English Language & Composition">English Language & Composition</option>
+              <option value="Literature in English">Literature in English</option>
+              <option value="Physics & Applied Mechanics">Physics & Applied Mechanics</option>
+              <option value="Chemistry">Chemistry</option>
+              <option value="Biology & Physiology">Biology & Physiology</option>
+              <option value="Computer Science & AI">Computer Science & AI</option>
+              <option value="Agricultural Science (Collegiate)">Agricultural Science (Collegiate)</option>
+              <option value="Economics">Economics</option>
+              <option value="Commerce & Business Studies">Commerce & Business Studies</option>
+              <option value="Financial Accounting">Financial Accounting</option>
+              <option value="Government & Politics">Government & Politics</option>
+              <option value="Civic Education & Global Affairs">Civic Education & Global Affairs</option>
+              <option value="Geography & Environment">Geography & Environment</option>
+              <option value="Technical Drawing / Basic Technology">Technical Drawing / Basic Technology</option>
+              <option value="French & Modern Languages">French & Modern Languages</option>
+              <option value="Christian Religious Knowledge (CRK)">Christian Religious Knowledge (CRK)</option>
+              <option value="Islamic Religious Studies (IRS)">Islamic Religious Studies (IRS)</option>
+              <option value="Visual & Fine Arts">Visual & Fine Arts</option>
+              <option value="Music & Performing Arts">Music & Performing Arts</option>
+              <option value="Food & Nutrition">Food & Nutrition</option>
+            </optgroup>
+            <optgroup label="➕ OTHER / CUSTOM">
+              <option value="__custom__">➕ Enter Custom / Unlisted Subject...</option>
+            </optgroup>
+          </select>
+
+          <!-- Custom Subject Input (Revealed if __custom__ chosen) -->
+          <div id="score-custom-subject-wrapper" style="display: none; margin-top: 8px;">
+            <input type="text" id="score-custom-subject" class="input-control" placeholder="Type custom subject name (e.g. Robotics & Drone Engineering)..." style="font-size: 0.85rem; border-color: var(--gold-500); background: #fffbeb;">
+          </div>
+        </div>
+
+        <!-- Scores Grid -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+          <div class="input-group">
+            <label style="font-size: 0.82rem; font-weight: 700;">CA 1 (Max 20)</label>
+            <input type="number" id="score-ca1" class="input-control" min="0" max="20" step="0.5" value="18" required oninput="updateScorePreview()">
+          </div>
+          <div class="input-group">
+            <label style="font-size: 0.82rem; font-weight: 700;">CA 2 (Max 20)</label>
+            <input type="number" id="score-ca2" class="input-control" min="0" max="20" step="0.5" value="17" required oninput="updateScorePreview()">
+          </div>
+          <div class="input-group">
+            <label style="font-size: 0.82rem; font-weight: 700;">Exam (Max 60)</label>
+            <input type="number" id="score-exam" class="input-control" min="0" max="60" step="0.5" value="52" required oninput="updateScorePreview()">
+          </div>
+        </div>
+
+        <!-- Live Computed Grade Preview Banner -->
+        <div style="background: #f8fafc; border: 1px solid var(--slate-200); border-radius: 8px; padding: 10px 14px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.82rem; color: var(--slate-600); font-weight: 600;">Computed Grade Preview:</span>
+          <span id="score-preview-badge" style="font-weight: 800; font-size: 0.88rem; color: var(--navy-900);">
+            Total: 87 / 100 • Grade A1 (Distinction)
+          </span>
+        </div>
+
+        <div style="text-align: right; display: flex; justify-content: flex-end; gap: 10px;">
+          <button type="button" class="btn btn-outline-white" onclick="closeModal('modal-score')" style="color: var(--slate-600); border-color: var(--slate-300);">
+            Cancel
+          </button>
+          <button type="submit" id="btn-submit-score" class="btn btn-gold">
+            ✓ Record Score & Compute Grade
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add CBT Question -->
+  <div class="admin-modal-overlay" id="modal-cbt">
+    <div class="admin-modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="color: var(--navy-900); font-size: 1.3rem; margin: 0;">Add CBT Examination Question</h3>
+        <button type="button" onclick="closeModal('modal-cbt')" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">✕</button>
+      </div>
+
+      <form id="form-cbt-q">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <div class="input-group">
+            <label>School Wing</label>
+            <select id="cbt-q-wing" class="input-control">
+              <option value="primary">🧸 Excellence Elementary</option>
+              <option value="secondary">🏛️ Excellence College</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Subject</label>
+            <input type="text" id="cbt-q-subject" class="input-control" placeholder="e.g. Mathematics" required>
+          </div>
+        </div>
+
+        <div class="input-group" style="margin-bottom: 14px;">
+          <label>Question Text</label>
+          <textarea id="cbt-q-text" class="input-control" rows="3" placeholder="Enter question..." required></textarea>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+          <div class="input-group">
+            <label>Option A</label>
+            <input type="text" id="cbt-q-a" class="input-control" required>
+          </div>
+          <div class="input-group">
+            <label>Option B</label>
+            <input type="text" id="cbt-q-b" class="input-control" required>
+          </div>
+          <div class="input-group">
+            <label>Option C</label>
+            <input type="text" id="cbt-q-c" class="input-control" required>
+          </div>
+          <div class="input-group">
+            <label>Option D</label>
+            <input type="text" id="cbt-q-d" class="input-control" required>
+          </div>
+        </div>
+
+        <div class="input-group" style="margin-bottom: 20px;">
+          <label>Correct Answer</label>
+          <select id="cbt-q-correct" class="input-control">
+            <option value="A">Option A</option>
+            <option value="B">Option B</option>
+            <option value="C">Option C</option>
+            <option value="D">Option D</option>
+          </select>
+        </div>
+
+        <div style="text-align: right;">
+          <button type="submit" class="btn btn-gold">
+            ✓ Add Question to Bank
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Post Notice Headline (With Image & Video Upload) -->
+  <div class="admin-modal-overlay" id="modal-notice">
+    <div class="admin-modal-box" style="max-width: 620px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="color: var(--navy-900); font-size: 1.3rem; margin: 0;">Publish Bulletin Ticker Headline</h3>
+        <button type="button" onclick="closeModal('modal-notice')" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">✕</button>
+      </div>
+
+      <form id="form-notice">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <div class="input-group">
+            <label>Target Wing</label>
+            <select id="notice-wing" class="input-control">
+              <option value="all">🌟 Both Wings (All EBS)</option>
+              <option value="primary">🧸 Excellence Elementary</option>
+              <option value="secondary">🏛️ Excellence College</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Category Tag</label>
+            <input type="text" id="notice-category" class="input-control" placeholder="e.g. Cambridge Exams, Athletics, Excursions" required>
+          </div>
+        </div>
+
+        <div class="input-group" style="margin-bottom: 14px;">
+          <label>Headline Title (Broadcasts on Homepage Ticker)</label>
+          <input type="text" id="notice-title" class="input-control" placeholder="e.g. Cambridge Mock Examination Timetable Released" required>
+        </div>
+
+        <div class="input-group" style="margin-bottom: 16px;">
+          <label>Detailed Announcement Text</label>
+          <textarea id="notice-content" class="input-control" rows="3" placeholder="Full announcement text for scholars, parents, and faculty..."></textarea>
+        </div>
+
+        <!-- Multimedia Upload Area (Images & Videos) -->
+        <div style="background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 18px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <label style="font-size: 0.85rem; font-weight: 700; color: var(--navy-900); margin: 0;">
+              📷 / 🎥 Attach Image or Video Clip (Optional)
+            </label>
+            <span style="font-size: 0.72rem; color: var(--slate-500);">Max 100MB • JPG, PNG, WEBP, MP4, WEBM</span>
+          </div>
+
+          <div style="display: flex; gap: 10px; align-items: center; margin-top: 8px;">
+            <input type="file" id="notice-media-file" class="input-control" accept="image/*,video/mp4,video/webm,video/ogg,video/quicktime" style="padding: 7px; font-size: 0.82rem;">
+          </div>
+
+          <!-- Live Media Preview Screen -->
+          <div id="notice-preview-box" style="display: none; margin-top: 14px; background: #000; border-radius: 8px; padding: 8px; border: 1px solid var(--gold-500); position: relative;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 8px; background: rgba(0,0,0,0.6); border-radius: 4px; margin-bottom: 6px;">
+              <span id="notice-preview-info" style="font-size: 0.75rem; color: var(--gold-300); font-weight: 700;">Media Selected</span>
+              <button type="button" onclick="clearNoticeMedia()" style="background: rgba(220,38,38,0.8); border: none; color: #fff; font-size: 0.72rem; padding: 2px 8px; border-radius: 4px; cursor: pointer;">✕ Remove</button>
+            </div>
+            <div id="notice-preview-render" style="max-height: 220px; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+              <!-- Dynamic preview element injected here -->
+            </div>
+          </div>
+
+          <!-- Optional Preset or URL link -->
+          <div style="margin-top: 12px;">
+            <label style="font-size: 0.74rem; color: var(--slate-500); display: block; margin-bottom: 4px;">Or enter Campus Photo / Video URL directly:</label>
+            <input type="text" id="notice-media-url" class="input-control" placeholder="e.g. /assets/images/college/college_sports.jpg or https://...video.mp4" style="font-size: 0.8rem; padding: 6px 10px;">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; cursor: pointer;">
+            <input type="checkbox" id="notice-pinned" checked> 📌 Pin Headline to Homepage Live Ticker
+          </label>
+          <button type="submit" id="btn-submit-notice" class="btn btn-gold">
+            📢 Broadcast Bulletin Headline
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer" style="margin-top: auto; padding: 20px 0; background: var(--navy-950); color: var(--slate-400); font-size: 0.82rem; border-top: 1px solid var(--navy-800);">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <p>© 2026 Excellence British Schools Central Directorate. Role-Based Administration Engine (Super Admin & Moderator).</p>
+      <div style="display: flex; gap: 16px;">
+        <a href="/" style="color: var(--gold-400);">Public Homepage</a>
+        <a href="/primary" style="color: var(--gold-400);">Excellence Elementary</a>
+        <a href="/secondary" style="color: var(--gold-400);">Excellence College</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/admin.js"></script>
+</body>
+</html>

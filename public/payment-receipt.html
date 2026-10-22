@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Receipt Upload & Bursary Clearance | Excellence British Schools</title>
+  <meta name="description" content="Submit school fee receipts and download audited digital clearance passes for Excellence Elementary School and Excellence College.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/print-slip.css" media="print">
+</head>
+<body style="background: var(--cream-100);">
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand-wrapper">
+        <div class="brand-crest">
+          <img src="/assets/images/crest.jpg" alt="Excellence British Schools Crest">
+        </div>
+        <div class="brand-details">
+          <h1>EXCELLENCE BRITISH SCHOOLS</h1>
+          <p class="latin-motto">Bursary, Financial Accounting & Fee Clearance Directorate</p>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="/" class="nav-link">Main Portal</a>
+        <a href="/primary" class="nav-link">Elementary Wing</a>
+        <a href="/secondary" class="nav-link">Excellence College</a>
+        <a href="/result-checker" class="nav-link">Result Checker</a>
+        <a href="/cbt" class="nav-link">CBT Testing</a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="padding: 60px 0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Bursary Portal</span>
+        <h2 class="section-title">Upload School Fee Payment Receipt</h2>
+        <p class="section-subtitle">
+          Submit electronic wire transfer slips, direct deposit tellers, or POS receipts for instant audit and bursary clearance certificate generation.
+        </p>
+      </div>
+
+      <div class="receipt-upload-card" id="receipt-upload-card">
+        <form id="receipt-upload-form" enctype="multipart/form-data">
+          <!-- Dropzone -->
+          <div class="dropzone-box" id="receipt-dropzone">
+            <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <h4 style="font-size: 1.15rem; color: var(--navy-900); margin-bottom: 4px;">Upload Bank Transfer Slip or Teller Image</h4>
+            <p style="font-size: 0.85rem; color: var(--slate-500); margin: 0;">Click here or drag-and-drop file (PNG, JPG, PDF up to 10MB)</p>
+            <input type="file" id="receipt_file" name="receipt_file" style="display:none;" accept="image/*,.pdf">
+          </div>
+
+          <div id="receipt-file-preview" style="display:none; margin-bottom: 24px;"></div>
+
+          <div class="form-grid-2">
+            <div class="input-group">
+              <label>School Wing</label>
+              <select name="school_wing" class="input-control" required>
+                <option value="primary">Excellence Elementary School (Nursery & Primary)</option>
+                <option value="secondary" selected>Excellence College (Secondary & Sixth Form)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Student Admission Number</label>
+              <input type="text" name="admission_number" class="input-control" placeholder="e.g. SEC/2024/001" required value="SEC/2024/001">
+            </div>
+
+            <div class="input-group">
+              <label>Student Full Name</label>
+              <input type="text" name="student_name" class="input-control" placeholder="Candidate full legal name" required value="Emeka Okafor">
+            </div>
+
+            <div class="input-group">
+              <label>Class / Grade Level</label>
+              <input type="text" name="class_name" class="input-control" placeholder="e.g. SSS 1A" required value="SSS 1A">
+            </div>
+
+            <div class="input-group">
+              <label>Payment Purpose / Fee Item</label>
+              <select name="fee_type" class="input-control" required>
+                <option value="Tuition Fee (Term 1)">Tuition Fee (Term 1)</option>
+                <option value="Tuition Fee (Term 2)">Tuition Fee (Term 2)</option>
+                <option value="Cambridge IGCSE Exam Fee" selected>Cambridge IGCSE Exam Fee</option>
+                <option value="Boarding & Welfare Fee">Boarding & Welfare Fee</option>
+                <option value="School Uniforms & Books">School Uniforms & Books</option>
+                <option value="Bus & Shuttle Route">Bus & Shuttle Route</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Amount Transferred (₦)</label>
+              <input type="number" name="amount" class="input-control" placeholder="e.g. 780000" required value="780000">
+            </div>
+
+            <div class="input-group">
+              <label>Bank Transaction Reference / Teller No.</label>
+              <input type="text" name="teller_ref" class="input-control" placeholder="e.g. TXN-ZENITH-992384" required value="TXN-ZENITH-992384" style="font-family: var(--font-mono);">
+            </div>
+
+            <div class="input-group">
+              <label>Bank Name & Payment Date</label>
+              <input type="text" name="bank_name" class="input-control" placeholder="Zenith Bank / GTBank" required value="Zenith Bank PLC">
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px;">
+            <button type="submit" class="btn btn-gold" id="upload-submit-btn" style="padding: 14px 32px;">
+              📤 Submit Payment Receipt for Clearance
+            </button>
+            <span style="font-size: 0.85rem; color: var(--slate-500);">Bank confirmation required for exam entry pin issuance.</span>
+          </div>
+        </form>
+
+        <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--slate-200);">
+          <h4 style="font-size: 1.1rem; color: var(--navy-900); margin-bottom: 12px;">Query Transaction Clearance Status</h4>
+          <form id="receipt-track-form" style="display: flex; gap: 12px;">
+            <input type="text" id="track-ref-input" class="input-control" placeholder="Enter Transaction Reference (e.g. TXN-GTB-9982341)" style="flex: 1;" required>
+            <button type="submit" class="btn btn-navy" style="background: var(--navy-900); color: #fff; padding: 12px 24px;">
+              Track Receipt
+            </button>
+          </form>
+          <div id="track-result-output" style="display:none;"></div>
+        </div>
+      </div>
+
+      <div id="receipt-result-output" style="display:none; max-width: 860px; margin: 0 auto;"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>© 2026 Excellence British Schools Bursary Directorate.</p>
+      <div style="display: flex; gap: 20px;">
+        <a href="/">Main Portal</a>
+        <a href="/primary">Elementary Wing</a>
+        <a href="/secondary">Excellence College</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/receipt.js"></script>
+</body>
+</html>

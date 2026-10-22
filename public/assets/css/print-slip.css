@@ -1,0 +1,45 @@
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11pt !important;
+  }
+
+  .site-header,
+  .uk-top-bar,
+  .site-footer,
+  .no-print,
+  .quick-demo-box,
+  .checker-header-tabs,
+  #checker-form,
+  .btn,
+  .modal-overlay {
+    display: none !important;
+  }
+
+  .result-slip-modal-view {
+    border: 2px solid #000 !important;
+    box-shadow: none !important;
+    padding: 10mm !important;
+    margin: 0 !important;
+    width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  .scores-table th {
+    background: #111 !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .scores-table td, .scores-table th {
+    border: 1px solid #444 !important;
+  }
+
+  .badge-grade {
+    border: 1px solid #000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

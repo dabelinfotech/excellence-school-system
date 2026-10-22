@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Result Checker Portal | Excellence British Schools</title>
+  <meta name="description" content="Official Result Checker Portal for Excellence British Schools — Excellence Elementary School & Excellence College verified terminal report slips.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/print-slip.css" media="print">
+</head>
+<body style="background: var(--cream-200);">
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand-wrapper">
+        <div class="brand-crest">
+          <img src="/assets/images/crest.jpg" alt="Excellence British Schools Crest">
+        </div>
+        <div class="brand-details">
+          <h1>EXCELLENCE BRITISH SCHOOLS</h1>
+          <p class="latin-motto">Official Student Assessment & Result Checker Portal</p>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="/" class="nav-link">Main Portal</a>
+        <a href="/primary" class="nav-link">Elementary Wing</a>
+        <a href="/secondary" class="nav-link">Excellence College</a>
+        <a href="/cbt" class="nav-link">CBT Testing</a>
+        <a href="/payment-receipt" class="nav-link">Fee Receipts</a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="padding: 60px 0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Examination Records</span>
+        <h2 class="section-title">Terminal Progress Report Checker</h2>
+        <p class="section-subtitle">
+          Select either <strong>Excellence Elementary School</strong> or <strong>Excellence College</strong>, enter the candidate's Admission Number and PIN to access and print the verified terminal report slip.
+        </p>
+      </div>
+
+      <div class="checker-wrapper">
+        <div class="checker-header-tabs">
+          <div class="checker-tab active" data-wing="primary">
+            <span>🧸 Excellence Elementary School</span>
+          </div>
+          <div class="checker-tab" data-wing="secondary">
+            <span>🔬 Excellence College</span>
+          </div>
+        </div>
+
+        <div class="checker-form-body" id="checker-form-container">
+          <div class="quick-demo-box">
+            <div>
+              <p>⚡ Quick Demo Testing (1-Click Fill):</p>
+              <span style="font-size: 0.78rem; color: #666;">Click any test pupil/scholar to auto-fill credentials:</span>
+            </div>
+            <div class="demo-pills" id="demo-pills-container"></div>
+          </div>
+
+          <form id="checker-form">
+            <div class="form-grid-2">
+              <div class="input-group">
+                <label for="admission_number">Student Admission Number</label>
+                <input type="text" id="admission_number" class="input-control" placeholder="e.g. NPS/2024/001 or SEC/2024/001" required>
+                <span style="font-size: 0.78rem; color: var(--slate-500);">Current wing: <strong id="active-wing-label">Excellence Elementary School</strong></span>
+              </div>
+              <div class="input-group">
+                <label for="pin">Result Card PIN</label>
+                <input type="text" id="pin" class="input-control" placeholder="e.g. EXCEL001 or SEC0001" required maxlength="12" style="font-family: var(--font-mono); letter-spacing: 1px;">
+                <span style="font-size: 0.78rem; color: var(--slate-500);">Keep your scratch card PIN secure.</span>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+              <button type="submit" class="btn btn-gold" id="check-btn" style="padding: 14px 34px;">
+                <span class="btn-text">🔍 Check & Print Result Slip</span>
+                <span class="btn-loader" style="display:none">Querying Registry...</span>
+              </button>
+              <a href="/payment-receipt" style="font-size: 0.85rem; color: var(--gold-700); font-weight: 600;">Need to clear fee invoice? Upload receipt →</a>
+            </div>
+
+            <div id="error-message" style="display:none; margin-top: 20px; padding: 14px; background: #fee2e2; border: 1px solid #ef4444; border-radius: 8px; color: #b91c1c; font-size: 0.9rem;">
+              <span id="error-text"></span>
+            </div>
+          </form>
+        </div>
+
+        <div id="result-slip-output" style="display:none; padding: 20px;"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>© 2026 Excellence British Schools Assessment Directorate.</p>
+      <div style="display: flex; gap: 20px;">
+        <a href="/">Main Portal</a>
+        <a href="/primary">Elementary Wing</a>
+        <a href="/secondary">Excellence College</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/app.js"></script>
+  <script src="/assets/js/result.js"></script>
+</body>
+</html>
