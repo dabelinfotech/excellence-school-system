@@ -31,3 +31,5 @@ check_*.js
 copy_user_images.js
 setup_user_images.js
 seed_bulletins.js
+
+.vercel

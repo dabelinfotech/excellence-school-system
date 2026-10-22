@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initWingModal();
   initRsvpModal();
   initAuthModal();
+  initMobileDrawer();
 });
 
 // Wing Selector Modal
@@ -209,11 +210,11 @@ window.openNoticeModal = function(idx) {
     const isVideo = n.media_type === 'video' || ['.mp4', '.webm', '.ogg', '.mov'].some(ext => n.media_url.toLowerCase().endsWith(ext));
     if (isVideo) {
       mediaContainer.innerHTML = `
-        <video controls autoplay playsinline src="${n.media_url}" style="width: 100%; max-height: 320px; display: block; border-radius: 8px;"></video>
+        <video controls autoplay playsinline src="${n.media_url}" style="width: 100%; max-height: 220px; display: block; border-radius: 8px; background: #000;"></video>
       `;
     } else {
       mediaContainer.innerHTML = `
-        <img src="${n.media_url}" alt="${n.title}" style="width: 100%; max-height: 340px; object-fit: contain; display: block; border-radius: 8px;">
+        <img src="${n.media_url}" alt="${n.title}" style="width: 100%; max-height: 220px; object-fit: contain; display: block; border-radius: 8px; margin: 0 auto;">
       `;
     }
     mediaContainer.style.display = 'block';
@@ -228,3 +229,112 @@ window.openNoticeModal = function(idx) {
 window.downloadNewsletter = function(filename, title) {
   alert(`Initiating download for:\n${title}\nFile: ${filename}\n(Official school publication registered with DfE repository)`);
 };
+
+// ═══════════════════════════════════════════════════════════════════
+// UNIVERSAL MOBILE NAVIGATION DRAWER CONTROLLER
+// ═══════════════════════════════════════════════════════════════════
+function initMobileDrawer() {
+  const headerInner = document.querySelector('.header-inner');
+  if (!headerInner) return;
+
+  // Ensure hamburger toggle button exists in header
+  let toggleBtn = headerInner.querySelector('.mobile-toggle-btn');
+  if (!toggleBtn) {
+    toggleBtn = document.createElement('button');
+    toggleBtn.type = 'button';
+    toggleBtn.className = 'mobile-toggle-btn';
+    toggleBtn.setAttribute('aria-label', 'Toggle Navigation Menu');
+    toggleBtn.innerHTML = '☰';
+    headerInner.appendChild(toggleBtn);
+  }
+
+  // Create drawer DOM element if not already present
+  let drawer = document.getElementById('mobile-nav-drawer');
+  if (!drawer) {
+    drawer = document.createElement('div');
+    drawer.id = 'mobile-nav-drawer';
+    drawer.className = 'mobile-nav-drawer';
+    const path = window.location.pathname.replace(/\/$/, '') || '/';
+    drawer.innerHTML = `
+      <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+      <div class="mobile-nav-panel">
+        <div class="mobile-nav-header">
+          <div class="brand-wrapper" style="gap: 10px;">
+            <div class="brand-crest" style="width: 38px; height: 38px; flex-shrink: 0;">
+              <img src="/assets/images/crest.jpg" alt="Excellence British Schools Crest">
+            </div>
+            <div>
+              <strong style="color: #fff; font-size: 0.92rem; display: block; line-height: 1.2;">EXCELLENCE BRITISH SCHOOLS</strong>
+              <span style="color: var(--gold-300); font-size: 0.68rem;">Virtus, Sapientia et Excellentia</span>
+            </div>
+          </div>
+          <button type="button" class="mobile-nav-close-btn" id="mobile-nav-close" aria-label="Close Navigation">✕</button>
+        </div>
+
+        <div class="mobile-nav-links">
+          <a href="/" class="mobile-nav-link ${path === '/' ? 'active' : ''}">
+            <span style="font-size: 1.15rem;">🏠</span> <span>Main Portal Home</span>
+          </a>
+          <a href="/primary" class="mobile-nav-link ${path === '/primary' ? 'active' : ''}">
+            <span style="font-size: 1.15rem;">🧸</span> <span>Excellence Elementary</span>
+          </a>
+          <a href="/secondary" class="mobile-nav-link ${path === '/secondary' ? 'active' : ''}">
+            <span style="font-size: 1.15rem;">🏛️</span> <span>Excellence College</span>
+          </a>
+          <a href="/result-checker" class="mobile-nav-link ${path === '/result-checker' ? 'active' : ''}">
+            <span style="font-size: 1.15rem;">📜</span> <span>Result Checker (PIN Slips)</span>
+          </a>
+          <a href="/cbt" class="mobile-nav-link ${path === '/cbt' ? 'active' : ''}">
+            <span style="font-size: 1.15rem;">💻</span> <span>CBT Examination Center</span>
+          </a>
+          <a href="/payment-receipt" class="mobile-nav-link ${path === '/payment-receipt' ? 'active' : ''}">
+            <span style="font-size: 1.15rem;">💳</span> <span>Fee Receipts & Clearance</span>
+          </a>
+          <a href="/newsletter" class="mobile-nav-link ${path === '/newsletter' ? 'active' : ''}">
+            <span style="font-size: 1.15rem;">📰</span> <span>Academic Newsletters</span>
+          </a>
+          <a href="/events" class="mobile-nav-link ${path === '/events' ? 'active' : ''}">
+            <span style="font-size: 1.15rem;">📅</span> <span>School Events & RSVP</span>
+          </a>
+          <div style="border-top: 1px solid rgba(197, 160, 89, 0.25); margin: 8px 0;"></div>
+          <a href="/admin" class="mobile-nav-link" style="color: var(--gold-300); font-weight: 700; background: rgba(197, 160, 89, 0.12); border-color: rgba(197, 160, 89, 0.35);">
+            <span style="font-size: 1.15rem;">👑</span> <span>Directorate Admin Login →</span>
+          </a>
+        </div>
+
+        <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.72rem; color: var(--slate-400);">
+          <div style="color: var(--gold-300); font-weight: 700; margin-bottom: 4px;">🇬🇧 British Curriculum Standards</div>
+          <div>Admiralty Way, Victoria Island & Lekki Campus</div>
+          <div style="margin-top: 2px;">Tel: +234 803 000 8899</div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(drawer);
+  }
+
+  // Open drawer event
+  toggleBtn.onclick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    drawer.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  // Close drawer events
+  const closeBtn = document.getElementById('mobile-nav-close');
+  if (closeBtn) {
+    closeBtn.onclick = () => {
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+  }
+
+  const backdrop = document.getElementById('mobile-nav-backdrop');
+  if (backdrop) {
+    backdrop.onclick = () => {
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+  }
+}
+

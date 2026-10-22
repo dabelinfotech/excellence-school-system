@@ -1681,3 +1681,687 @@ h1, h2, h3, h4, .font-serif {
   box-shadow: 0 2px 4px rgba(3, 15, 36, 0.2);
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   PREMIUM MOBILE NAVIGATION DRAWER
+   ═══════════════════════════════════════════════════════════════════ */
+.mobile-nav-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100000;
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.mobile-nav-drawer.open {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+.mobile-nav-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(3, 15, 36, 0.75);
+  backdrop-filter: blur(8px);
+}
+
+.mobile-nav-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(340px, 86vw);
+  height: 100%;
+  background: var(--navy-950);
+  border-left: 2px solid var(--gold-500);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 20px;
+  overflow-y: auto;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+  transform: translateX(100%);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
+}
+
+.mobile-nav-drawer.open .mobile-nav-panel {
+  transform: translateX(0);
+}
+
+.mobile-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.25);
+  margin-bottom: 20px;
+}
+
+.mobile-nav-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  color: var(--gold-300);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.mobile-nav-close-btn:hover {
+  background: var(--gold-500);
+  color: var(--navy-950);
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  color: var(--slate-200);
+  font-size: 0.92rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: var(--transition);
+}
+
+.mobile-nav-link:hover, .mobile-nav-link.active {
+  background: rgba(197, 160, 89, 0.15);
+  color: var(--gold-300);
+  border-color: rgba(197, 160, 89, 0.35);
+  transform: translateX(4px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESPONSIVE TABLE CONTAINER & SCROLLBAR
+   ═══════════════════════════════════════════════════════════════════ */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 16px;
+}
+
+.table-responsive::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: var(--gold-500);
+  border-radius: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   COMPREHENSIVE RESPONSIVE SUITE — MOBILE PHONES & TABLETS
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Global container and media fluid controls */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden !important;
+}
+
+img, video {
+  max-width: 100% !important;
+  height: auto;
+}
+
+@media (max-width: 992px) {
+  .site-header .main-nav {
+    display: none !important;
+  }
+  .mobile-toggle-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: rgba(11, 28, 54, 0.06);
+    border: 1px solid rgba(197, 160, 89, 0.35);
+    color: var(--navy-900);
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 1.35rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: var(--transition);
+  }
+  .mobile-toggle-btn:hover {
+    background: var(--gold-500);
+    color: var(--navy-950);
+  }
+}
+
+@media (max-width: 768px) {
+  /* 1. Global Container & Typography Scaling (Text size reduction for mobile) */
+  .container, .container-narrow {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  h1 { font-size: clamp(1.35rem, 5.5vw, 1.85rem) !important; }
+  h2, .section-title { font-size: clamp(1.2rem, 4.8vw, 1.6rem) !important; }
+  h3 { font-size: clamp(1.05rem, 4vw, 1.3rem) !important; }
+  h4 { font-size: clamp(0.92rem, 3.2vw, 1.12rem) !important; }
+  p, .section-subtitle, .hero-subtitle {
+    font-size: 0.88rem !important;
+    line-height: 1.55 !important;
+  }
+
+  /* 2. Top Accreditation & Ticker Bars */
+  .uk-top-bar {
+    padding: 6px 0 !important;
+    font-size: 0.74rem !important;
+  }
+  .uk-top-bar-inner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+  }
+  .uk-accreditation-tags {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+  .uk-badge-pill {
+    font-size: 0.68rem !important;
+    padding: 2px 7px !important;
+  }
+  .uk-top-links {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px 14px !important;
+    font-size: 0.72rem !important;
+  }
+
+  /* 3. Site Header & Brand Identity */
+  .site-header .header-inner {
+    padding: 8px 0 !important;
+  }
+  .brand-crest {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  .brand-details h1 {
+    font-size: 1.05rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0 !important;
+  }
+  .brand-details .latin-motto {
+    font-size: 0.64rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 210px !important;
+  }
+
+  /* 4. Top Action Direct Buttons Under Header */
+  .top-motion-picture-section {
+    padding: 16px 0 22px 0 !important;
+  }
+  .top-motion-picture-section .btn {
+    font-size: 0.78rem !important;
+    padding: 7px 12px !important;
+    flex: 1 1 calc(50% - 6px) !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  /* 5. Auto Motion Pictures & Cinema Theater (Scaled down for mobile screens) */
+  .cinema-theater-container {
+    border-radius: 12px !important;
+  }
+  .cinema-topbar {
+    padding: 10px 12px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+  .cinema-title-group strong {
+    font-size: 0.85rem !important;
+  }
+  .cinema-filter-nav {
+    display: flex !important;
+    overflow-x: auto !important;
+    width: 100% !important;
+    gap: 6px !important;
+    padding-bottom: 4px !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .cinema-filter-btn {
+    font-size: 0.72rem !important;
+    padding: 4px 10px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+  .cinema-screen-viewport {
+    height: 230px !important;
+  }
+  .cinema-caption-overlay {
+    padding: 14px 12px 10px 12px !important;
+    gap: 10px !important;
+  }
+  .cinema-caption-text h3 {
+    font-size: 1.05rem !important;
+    margin-bottom: 3px !important;
+  }
+  .cinema-caption-text p {
+    font-size: 0.76rem !important;
+    line-height: 1.4 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+  .cinema-screen-nav-btn {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 0.82rem !important;
+  }
+  .cinema-btn-prev { left: 8px !important; }
+  .cinema-btn-next { right: 8px !important; }
+  .cinema-controls-bar {
+    padding: 8px 12px !important;
+    gap: 8px !important;
+    font-size: 0.76rem !important;
+  }
+  .cinema-progress-track {
+    width: 90px !important;
+    height: 4px !important;
+  }
+  .cinema-action-btn {
+    padding: 5px 10px !important;
+    font-size: 0.76rem !important;
+  }
+  .cinema-filmstrip-section {
+    padding: 10px 12px !important;
+  }
+  .cinema-filmstrip-item {
+    flex: 0 0 115px !important;
+    border-radius: 6px !important;
+  }
+  .thumb-img-box {
+    height: 68px !important;
+  }
+  .thumb-caption {
+    font-size: 0.68rem !important;
+    padding: 4px 6px !important;
+  }
+  .cinema-lightbox-overlay {
+    padding: 16px !important;
+  }
+  .cinema-lightbox-viewport {
+    height: 38vh !important;
+  }
+
+  /* 6. Hero Section & Actions */
+  .hero-section {
+    min-height: auto !important;
+  }
+  .hero-content {
+    padding: 34px 0 44px 0 !important;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem !important;
+    padding: 3px 10px !important;
+    margin-bottom: 12px !important;
+  }
+  .hero-title {
+    font-size: 1.75rem !important;
+    line-height: 1.25 !important;
+    margin-bottom: 12px !important;
+  }
+  .hero-subtitle {
+    font-size: 0.88rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 22px !important;
+  }
+  .hero-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 10px !important;
+  }
+  .hero-actions .btn {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+    padding: 11px 18px !important;
+    font-size: 0.88rem !important;
+  }
+  .hero-stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    margin-top: 24px !important;
+  }
+  .hero-stat-card {
+    padding: 12px 10px !important;
+  }
+  .stat-number {
+    font-size: 1.5rem !important;
+  }
+  .stat-label {
+    font-size: 0.72rem !important;
+  }
+
+  /* 7. Dual-Wing Feature Cards */
+  .wings-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .wing-card-image {
+    height: 180px !important;
+  }
+  .wing-card-body {
+    padding: 20px 16px !important;
+  }
+  .wing-card-body h3 {
+    font-size: 1.25rem !important;
+  }
+
+  /* 8. Headmaster & Faculty Layout */
+  .headmaster-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .headmaster-img-box {
+    max-height: 260px !important;
+    margin: 0 auto !important;
+  }
+  .headmaster-img-box img {
+    height: 240px !important;
+    object-fit: cover !important;
+  }
+
+  /* 9. Modals (Universal Responsive Modal Box) */
+  .admin-modal-box, .modal-card {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    padding: 18px 14px !important;
+    margin: 8px auto !important;
+    max-height: 92vh !important;
+    border-radius: 12px !important;
+  }
+  .modal-header {
+    padding: 14px 16px !important;
+  }
+  .modal-header h3 {
+    font-size: 1.1rem !important;
+  }
+  .modal-body {
+    padding: 16px 14px !important;
+  }
+
+  /* Universal Multi-Column Grid Collapsing for Mobile Viewports */
+  .admin-modal-box [style*="grid-template-columns"],
+  .cbt-container [style*="grid-template-columns"],
+  .receipt-upload-card [style*="grid-template-columns"],
+  .checker-wrapper [style*="grid-template-columns"],
+  main [style*="grid-template-columns"]:not(.keep-grid),
+  section [style*="grid-template-columns"]:not(.keep-grid) {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* 10. Table Responsiveness Across All Systems */
+  .scores-table, .admin-table, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    white-space: nowrap !important;
+    font-size: 0.8rem !important;
+  }
+  .scores-table th, .scores-table td {
+    padding: 8px 10px !important;
+    font-size: 0.78rem !important;
+  }
+
+  /* 11. Admin Directorate Portal */
+  .admin-tabs-nav {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 4px 0 10px 0 !important;
+    gap: 6px !important;
+    margin-bottom: 16px !important;
+  }
+  .admin-tab-btn {
+    flex-shrink: 0 !important;
+    padding: 7px 12px !important;
+    font-size: 0.78rem !important;
+  }
+  .admin-card {
+    padding: 16px 12px !important;
+    border-radius: 10px !important;
+    margin-bottom: 18px !important;
+  }
+  .admin-card-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+  .admin-card-header > div:last-child {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .admin-card-header input,
+  .admin-card-header select,
+  .admin-card-header button {
+    width: 100% !important;
+  }
+  #admin-user-pill {
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+  .media-dropzone {
+    padding: 16px 12px !important;
+  }
+  .media-dropzone video, .media-dropzone img {
+    max-height: 180px !important;
+    width: 100% !important;
+    object-fit: contain !important;
+  }
+  .quick-media-thumb {
+    width: 52px !important;
+    height: 38px !important;
+  }
+  #score-wing-filter-pills {
+    flex-wrap: wrap !important;
+  }
+  .btn-filter-pill {
+    font-size: 0.68rem !important;
+    padding: 2px 7px !important;
+  }
+
+  /* 12. Result Checker Slip & Meta Grid */
+  .result-slip-modal-view {
+    padding: 16px 12px !important;
+  }
+  .slip-header {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 12px !important;
+  }
+  .slip-header-brand {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 10px !important;
+  }
+  .slip-header-brand img {
+    width: 56px !important;
+    height: 56px !important;
+  }
+  .slip-school-info h2 {
+    font-size: 1.15rem !important;
+  }
+  .slip-photo-box {
+    width: 70px !important;
+    height: 80px !important;
+  }
+  .slip-student-meta-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    padding: 10px !important;
+  }
+  .meta-item strong {
+    font-size: 0.65rem !important;
+  }
+  .meta-item span {
+    font-size: 0.8rem !important;
+  }
+  .slip-signatures-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  .sig-box p {
+    margin-top: 20px !important;
+  }
+
+  /* 13. CBT Center */
+  .cbt-container {
+    border-radius: 12px !important;
+  }
+  #cbt-setup-card {
+    padding: 20px 14px !important;
+  }
+  .cbt-top-bar {
+    padding: 12px 14px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+  .cbt-timer-badge {
+    padding: 5px 12px !important;
+    font-size: 0.95rem !important;
+  }
+  .cbt-question-area {
+    padding: 20px 14px !important;
+  }
+  .cbt-q-text {
+    font-size: 1.05rem !important;
+    margin-bottom: 18px !important;
+  }
+  .cbt-option-item {
+    padding: 10px 12px !important;
+    gap: 10px !important;
+    font-size: 0.88rem !important;
+  }
+  .cbt-option-letter {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 0.8rem !important;
+  }
+  .cbt-nav-actions {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .cbt-nav-actions .btn {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+  .cbt-palette-sidebar {
+    padding: 16px 14px !important;
+  }
+  .cbt-palette-grid {
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 6px !important;
+  }
+
+  /* 14. Fee Receipts & Newsletters */
+  .receipt-upload-card {
+    padding: 20px 14px !important;
+  }
+  .dropzone-box {
+    padding: 24px 14px !important;
+  }
+  .dropzone-icon {
+    width: 40px !important;
+    height: 40px !important;
+    margin-bottom: 8px !important;
+  }
+  .newsletter-card-top {
+    padding: 18px 16px !important;
+  }
+  .newsletter-card-top h4 {
+    font-size: 1.15rem !important;
+  }
+  .newsletter-card-body {
+    padding: 16px !important;
+  }
+  .event-row-card {
+    padding: 14px 16px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .event-date-box {
+    padding: 8px 14px !important;
+    min-width: 70px !important;
+  }
+  .event-date-box .day {
+    font-size: 1.4rem !important;
+  }
+
+  /* 15. Footer */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .footer-bottom {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 10px !important;
+  }
+}
+
+/* Extra Small Phones (≤ 480px / 375px / 320px) */
+@media (max-width: 480px) {
+  .hero-stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .cinema-screen-viewport {
+    height: 205px !important;
+  }
+  .brand-details h1 {
+    font-size: 0.95rem !important;
+  }
+  .brand-details .latin-motto {
+    display: none !important;
+  }
+  .slip-student-meta-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .cinema-controls-bar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .cinema-ctrl-left {
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+}
+
+

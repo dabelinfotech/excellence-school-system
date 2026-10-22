@@ -31,7 +31,7 @@
       </a>
 
       <!-- Current Logged In Profile & Role Controls -->
-      <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
         <div id="admin-user-pill" style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.06); padding: 6px 14px; border-radius: 30px; border: 1px solid rgba(197, 160, 89, 0.3);">
           <span id="admin-role-badge" class="admin-role-badge superadmin">👑 SUPER ADMIN</span>
           <div style="line-height: 1.2;">
@@ -40,17 +40,19 @@
           </div>
         </div>
 
-        <button type="button" id="btn-switch-account" class="btn btn-outline-white" style="padding: 6px 12px; font-size: 0.78rem;" title="Switch between Super Admin and Moderator">
-          ⚡ Switch Role
-        </button>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+          <button type="button" id="btn-switch-account" class="btn btn-outline-white" style="padding: 6px 12px; font-size: 0.78rem;" title="Switch between Super Admin and Moderator">
+            ⚡ Switch Role
+          </button>
 
-        <a href="/" class="btn btn-gold" style="padding: 6px 14px; font-size: 0.78rem;" target="_blank">
-          Public Portal ↗
-        </a>
+          <a href="/" class="btn btn-gold" style="padding: 6px 14px; font-size: 0.78rem;" target="_blank">
+            Public Portal ↗
+          </a>
 
-        <button type="button" id="btn-logout" class="btn btn-crimson" style="padding: 6px 12px; font-size: 0.78rem;">
-          🚪 Logout
-        </button>
+          <button type="button" id="btn-logout" class="btn btn-crimson" style="padding: 6px 12px; font-size: 0.78rem;">
+            🚪 Logout
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -251,22 +253,24 @@
               </button>
             </div>
 
-            <table class="scores-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Full Name</th>
-                  <th>Username</th>
-                  <th>Role Category</th>
-                  <th>Wing Scope</th>
-                  <th>Account Created</th>
-                  <th>Super Admin Actions</th>
-                </tr>
-              </thead>
-              <tbody id="users-table-body">
-                <tr><td colspan="7" style="text-align:center; padding: 20px;">Loading administrative personnel...</td></tr>
-              </tbody>
-            </table>
+            <div class="table-responsive">
+              <table class="scores-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Username</th>
+                    <th>Role Category</th>
+                    <th>Wing Scope</th>
+                    <th>Account Created</th>
+                    <th>Super Admin Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="users-table-body">
+                  <tr><td colspan="7" style="text-align:center; padding: 20px;">Loading administrative personnel...</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </section>
@@ -294,23 +298,25 @@
             </div>
           </div>
 
-          <table class="scores-table">
-            <thead>
-              <tr>
-                <th>Wing</th>
-                <th>Admission No.</th>
-                <th>Student Full Name</th>
-                <th>Class</th>
-                <th>Gender</th>
-                <th>Parent / Contact</th>
-                <th>House</th>
-                <th>Management Action</th>
-              </tr>
-            </thead>
-            <tbody id="students-table-body">
-              <tr><td colspan="8" style="text-align:center; padding: 20px;">Loading student directory...</td></tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="scores-table">
+              <thead>
+                <tr>
+                  <th>Wing</th>
+                  <th>Admission No.</th>
+                  <th>Student Full Name</th>
+                  <th>Class</th>
+                  <th>Gender</th>
+                  <th>Parent / Contact</th>
+                  <th>House</th>
+                  <th>Management Action</th>
+                </tr>
+              </thead>
+              <tbody id="students-table-body">
+                <tr><td colspan="8" style="text-align:center; padding: 20px;">Loading student directory...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -329,22 +335,24 @@
             </a>
           </div>
 
-          <table class="scores-table">
-            <thead>
-              <tr>
-                <th>Ref / Teller</th>
-                <th>Student & Class</th>
-                <th>Wing</th>
-                <th>Fee Type & Bank</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th>Auditor Verification</th>
-              </tr>
-            </thead>
-            <tbody id="receipts-table-body">
-              <tr><td colspan="7" style="text-align:center; padding: 20px;">Loading bursary receipts...</td></tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="scores-table">
+              <thead>
+                <tr>
+                  <th>Ref / Teller</th>
+                  <th>Student & Class</th>
+                  <th>Wing</th>
+                  <th>Fee Type & Bank</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Auditor Verification</th>
+                </tr>
+              </thead>
+              <tbody id="receipts-table-body">
+                <tr><td colspan="7" style="text-align:center; padding: 20px;">Loading bursary receipts...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -363,22 +371,24 @@
             </button>
           </div>
 
-          <table class="scores-table">
-            <thead>
-              <tr>
-                <th>Scratch Card PIN</th>
-                <th>Assigned Student</th>
-                <th>Admission No.</th>
-                <th>Wing</th>
-                <th>Usage Counter</th>
-                <th>Status</th>
-                <th>Audit Action</th>
-              </tr>
-            </thead>
-            <tbody id="pins-table-body">
-              <tr><td colspan="7" style="text-align:center; padding: 20px;">Loading PIN pool...</td></tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="scores-table">
+              <thead>
+                <tr>
+                  <th>Scratch Card PIN</th>
+                  <th>Assigned Student</th>
+                  <th>Admission No.</th>
+                  <th>Wing</th>
+                  <th>Usage Counter</th>
+                  <th>Status</th>
+                  <th>Audit Action</th>
+                </tr>
+              </thead>
+              <tbody id="pins-table-body">
+                <tr><td colspan="7" style="text-align:center; padding: 20px;">Loading PIN pool...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -404,25 +414,27 @@
             </div>
           </div>
 
-          <table class="scores-table">
-            <thead>
-              <tr>
-                <th>Student Name</th>
-                <th>Admission No.</th>
-                <th>Class</th>
-                <th>Subject</th>
-                <th>CA 1 (20)</th>
-                <th>CA 2 (20)</th>
-                <th>Exam (60)</th>
-                <th>Total (100)</th>
-                <th>Grade</th>
-                <th>Remark</th>
-              </tr>
-            </thead>
-            <tbody id="results-table-body">
-              <tr><td colspan="10" style="text-align:center; padding: 20px;">Loading terminal assessment marks...</td></tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="scores-table">
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Admission No.</th>
+                  <th>Class</th>
+                  <th>Subject</th>
+                  <th>CA 1 (20)</th>
+                  <th>CA 2 (20)</th>
+                  <th>Exam (60)</th>
+                  <th>Total (100)</th>
+                  <th>Grade</th>
+                  <th>Remark</th>
+                </tr>
+              </thead>
+              <tbody id="results-table-body">
+                <tr><td colspan="10" style="text-align:center; padding: 20px;">Loading terminal assessment marks...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -451,23 +463,25 @@
 
             <div style="margin-top: 20px;">
               <h4 style="color: var(--navy-900); margin-bottom: 12px; font-size: 1.1rem;">Candidate CBT Examination Submissions</h4>
-              <table class="scores-table">
-                <thead>
-                  <tr>
-                    <th>Candidate Name</th>
-                    <th>Reg No.</th>
-                    <th>Wing</th>
-                    <th>Subject</th>
-                    <th>Score</th>
-                    <th>Percentage</th>
-                    <th>Result</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-                <tbody id="cbt-attempts-table-body">
-                  <tr><td colspan="8" style="text-align:center; padding: 16px;">Loading candidate attempts...</td></tr>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table class="scores-table">
+                  <thead>
+                    <tr>
+                      <th>Candidate Name</th>
+                      <th>Reg No.</th>
+                      <th>Wing</th>
+                      <th>Subject</th>
+                      <th>Score</th>
+                      <th>Percentage</th>
+                      <th>Result</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="cbt-attempts-table-body">
+                    <tr><td colspan="8" style="text-align:center; padding: 16px;">Loading candidate attempts...</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>

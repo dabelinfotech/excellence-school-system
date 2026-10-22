@@ -263,22 +263,24 @@ function renderResultSlip(data) {
       </div>
 
       <!-- Academic Table -->
-      <table class="scores-table">
-        <thead>
-          <tr>
-            <th>Subject</th>
-            <th style="text-align: center; width: 60px;">CA 1 (20)</th>
-            <th style="text-align: center; width: 60px;">CA 2 (20)</th>
-            <th style="text-align: center; width: 60px;">Exam (60)</th>
-            <th style="text-align: center; width: 60px;">Total (100)</th>
-            <th style="text-align: center; width: 70px;">Grade</th>
-            <th>Teacher Remark</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${subjectRows}
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="scores-table">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th style="text-align: center; width: 60px;">CA 1 (20)</th>
+              <th style="text-align: center; width: 60px;">CA 2 (20)</th>
+              <th style="text-align: center; width: 60px;">Exam (60)</th>
+              <th style="text-align: center; width: 60px;">Total (100)</th>
+              <th style="text-align: center; width: 70px;">Grade</th>
+              <th>Teacher Remark</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${subjectRows}
+          </tbody>
+        </table>
+      </div>
 
       <!-- Summary & Behavioral Ratings -->
       <div style="display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 16px; margin-bottom: 24px;">
