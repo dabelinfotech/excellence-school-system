@@ -51,7 +51,7 @@ Excellence British Schools Management System is an enterprise-grade academic por
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/dabeltech/excellence-school-system.git
+git clone https://github.com/dabelinfotech/excellence-school-system.git
 
 # Navigate to project folder
 cd excellence-school-system
