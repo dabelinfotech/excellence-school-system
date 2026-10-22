@@ -29,13 +29,15 @@
       </a>
 
       <nav class="main-nav">
-        <a href="/" class="nav-link">Main Portal</a>
-        <a href="/primary" class="nav-link">Elementary Wing</a>
+        <a href="/" class="nav-link">Home</a>
+        <a href="/primary" class="nav-link">Excellence Elementary</a>
         <a href="/secondary" class="nav-link">Excellence College</a>
         <a href="/facilities" class="nav-link">Facilities</a>
         <a href="/result-checker" class="nav-link">Result Checker</a>
         <a href="/cbt" class="nav-link active">CBT Testing</a>
         <a href="/payment-receipt" class="nav-link">Fee Receipts</a>
+        <a href="/newsletter" class="nav-link">Newsletters</a>
+        <a href="/events" class="nav-link">Events</a>
       </nav>
 
       <button type="button" class="mobile-toggle-btn" aria-label="Toggle Navigation">
@@ -47,10 +49,10 @@
   <main style="padding: 60px 0;">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge">Standardised Testing Suite</span>
-        <h2 class="section-title">Online Computer-Based Test (CBT) Center</h2>
+        <span class="section-badge">Digital Assessment Engine</span>
+        <h2 class="section-title">Interactive Computer-Based Test (CBT) Center</h2>
         <p class="section-subtitle">
-          Select test category, enter candidate credentials, and complete the timed digital examination across Excellence Elementary School and Excellence College curricula.
+          Practice and sit for real-time timed assessments across Excellence Elementary KS2 Quizzes and Excellence College Cambridge IGCSE Mock Examinations.
         </p>
       </div>
 
@@ -61,24 +63,24 @@
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 24px;">
               <div class="input-group">
                 <label>Candidate Full Name</label>
-                <input type="text" id="cbt-cand-name" class="input-control" value="Alexander Kensington" required>
+                <input type="text" id="cbt-cand-name" class="input-control" value="Chidimma Okoli" required>
               </div>
 
               <div class="input-group">
                 <label>Examination / Reg. No.</label>
-                <input type="text" id="cbt-cand-reg" class="input-control" value="EXC-CBT-2026-99" required>
+                <input type="text" id="cbt-cand-reg" class="input-control" value="EBS-CBT-2026-08" required>
               </div>
 
               <div class="input-group">
                 <label>School Wing</label>
                 <select id="cbt-wing-select" class="input-control">
-                  <option value="secondary">Excellence College (Secondary & Sixth Form - IGCSE)</option>
-                  <option value="primary">Excellence Elementary School (Nursery & Primary - KS2)</option>
+                  <option value="secondary">Excellence College (IGCSE / WAEC)</option>
+                  <option value="primary">Excellence Elementary School (KS2 Quizzes)</option>
                 </select>
               </div>
 
               <div class="input-group">
-                <label>Subject</label>
+                <label>Examination Subject</label>
                 <select id="cbt-subject-select" class="input-control">
                   <option value="Mathematics">IGCSE Mathematics (Extended)</option>
                   <option value="Physics">IGCSE Physics & Mechanics</option>
@@ -91,11 +93,11 @@
 
             <div style="display: flex; justify-content: space-between; align-items: center; background: var(--cream-100); padding: 18px 24px; border-radius: 10px; border: 1px solid var(--slate-200);">
               <div>
-                <strong style="color: var(--navy-900);">Examination Rules:</strong>
-                <span style="font-size: 0.88rem; color: var(--slate-600); margin-left: 8px;">1 minute per question • Countdown timer active • Automated scoring</span>
+                <strong style="color: var(--navy-900);">Examination Parameters:</strong>
+                <span style="font-size: 0.88rem; color: var(--slate-600); margin-left: 8px;">Timed Multiple-Choice • Negative Marking: None • Instant Solutions & Certificate</span>
               </div>
               <button type="submit" class="btn btn-gold">
-                🚀 Begin Examination →
+                🚀 Launch CBT Examination →
               </button>
             </div>
           </form>

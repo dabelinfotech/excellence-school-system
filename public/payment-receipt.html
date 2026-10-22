@@ -29,13 +29,15 @@
       </a>
 
       <nav class="main-nav">
-        <a href="/" class="nav-link">Main Portal</a>
-        <a href="/primary" class="nav-link">Elementary Wing</a>
+        <a href="/" class="nav-link">Home</a>
+        <a href="/primary" class="nav-link">Excellence Elementary</a>
         <a href="/secondary" class="nav-link">Excellence College</a>
         <a href="/facilities" class="nav-link">Facilities</a>
         <a href="/result-checker" class="nav-link">Result Checker</a>
         <a href="/cbt" class="nav-link">CBT Testing</a>
         <a href="/payment-receipt" class="nav-link active">Fee Receipts</a>
+        <a href="/newsletter" class="nav-link">Newsletters</a>
+        <a href="/events" class="nav-link">Events</a>
       </nav>
 
       <button type="button" class="mobile-toggle-btn" aria-label="Toggle Navigation">
@@ -47,10 +49,10 @@
   <main style="padding: 60px 0;">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge">Bursary Portal</span>
-        <h2 class="section-title">Upload School Fee Payment Receipt</h2>
+        <span class="section-badge">Bursary & Accounts Clearance</span>
+        <h2 class="section-title">School Fee Payment Receipt Upload & Tracking</h2>
         <p class="section-subtitle">
-          Submit electronic wire transfer slips, direct deposit tellers, or POS receipts for instant audit and bursary clearance certificate generation.
+          Submit bank deposit tellers, electronic transfer receipts, or POS slips. Receive digital bursary clearance verification immediately.
         </p>
       </div>
 
@@ -59,8 +61,8 @@
           <!-- Dropzone -->
           <div class="dropzone-box" id="receipt-dropzone">
             <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            <h4 style="font-size: 1.15rem; color: var(--navy-900); margin-bottom: 4px;">Upload Bank Transfer Slip or Teller Image</h4>
-            <p style="font-size: 0.85rem; color: var(--slate-500); margin: 0;">Click here or drag-and-drop file (PNG, JPG, PDF up to 10MB)</p>
+            <h4 style="font-size: 1.15rem; color: var(--navy-900); margin-bottom: 4px;">Click to Browse or Drag & Drop Bank Receipt</h4>
+            <p style="font-size: 0.85rem; color: var(--slate-500); margin: 0;">Supports JPG, PNG, PDF up to 10MB (Official bank stamp/teller reference visible)</p>
             <input type="file" id="receipt_file" name="receipt_file" style="display:none;" accept="image/*,.pdf">
           </div>
 
