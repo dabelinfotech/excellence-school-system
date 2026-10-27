@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initRsvpModal();
   initAuthModal();
   initMobileDrawer();
+  initHeaderDropdowns();
 });
 
 // Wing Selector Modal
@@ -272,8 +273,10 @@ function initMobileDrawer() {
         </div>
 
         <div class="mobile-nav-links">
+          <!-- CATEGORY 1: SCHOOL -->
+          <div class="mobile-nav-section-title">School</div>
           <a href="/" class="mobile-nav-link ${path === '/' ? 'active' : ''}">
-            <span style="font-size: 1.15rem;">🏠</span> <span>Main Portal Home</span>
+            <span style="font-size: 1.15rem;">🏠</span> <span>Home</span>
           </a>
           <a href="/primary" class="mobile-nav-link ${path === '/primary' ? 'active' : ''}">
             <span style="font-size: 1.15rem;">🧸</span> <span>Excellence Elementary</span>
@@ -282,24 +285,37 @@ function initMobileDrawer() {
             <span style="font-size: 1.15rem;">🏛️</span> <span>Excellence College</span>
           </a>
           <a href="/facilities" class="mobile-nav-link ${path === '/facilities' || path === '/gallery' ? 'active' : ''}">
-            <span style="font-size: 1.15rem;">🏫</span> <span>Facilities & Campus Life</span>
+            <span style="font-size: 1.15rem;">🏫</span> <span>Facilities</span>
           </a>
-          <a href="/result-checker" class="mobile-nav-link ${path === '/result-checker' ? 'active' : ''}">
-            <span style="font-size: 1.15rem;">📜</span> <span>Result Checker (PIN Slips)</span>
-          </a>
-          <a href="/cbt" class="mobile-nav-link ${path === '/cbt' ? 'active' : ''}">
-            <span style="font-size: 1.15rem;">💻</span> <span>CBT Examination Center</span>
-          </a>
-          <a href="/payment-receipt" class="mobile-nav-link ${path === '/payment-receipt' ? 'active' : ''}">
-            <span style="font-size: 1.15rem;">💳</span> <span>Fee Receipts & Clearance</span>
-          </a>
+
+          <!-- CATEGORY 2: INFORMATION -->
+          <div class="mobile-nav-section-title">Information</div>
           <a href="/newsletter" class="mobile-nav-link ${path === '/newsletter' ? 'active' : ''}">
-            <span style="font-size: 1.15rem;">📰</span> <span>Academic Newsletters</span>
+            <span style="font-size: 1.15rem;">📰</span> <span>Newsletters</span>
           </a>
           <a href="/events" class="mobile-nav-link ${path === '/events' ? 'active' : ''}">
-            <span style="font-size: 1.15rem;">📅</span> <span>School Events & RSVP</span>
+            <span style="font-size: 1.15rem;">📅</span> <span>Events</span>
           </a>
-          <div style="border-top: 1px solid rgba(197, 160, 89, 0.25); margin: 8px 0;"></div>
+
+          <!-- CATEGORY 3: STUDENT SERVICES -->
+          <div class="mobile-nav-section-title">Student Services</div>
+          <a href="/result-checker" class="mobile-nav-link ${path === '/result-checker' ? 'active' : ''}">
+            <span style="font-size: 1.15rem;">📜</span> <span>Result Checker</span>
+          </a>
+          <a href="/cbt" class="mobile-nav-link ${path === '/cbt' ? 'active' : ''}">
+            <span style="font-size: 1.15rem;">💻</span> <span>CBT Testing</span>
+          </a>
+          <a href="/payment-receipt" class="mobile-nav-link ${path === '/payment-receipt' ? 'active' : ''}">
+            <span style="font-size: 1.15rem;">💳</span> <span>Fee Receipts</span>
+          </a>
+
+          <!-- SCHOOL WING SELECTOR & ADMIN -->
+          <div class="mobile-nav-section-title">School Wings</div>
+          <button type="button" class="mobile-nav-link open-wing-modal-btn" style="background: rgba(197, 160, 89, 0.08); border-color: rgba(197, 160, 89, 0.3); width: 100%; text-align: left; cursor: pointer;">
+            <span style="font-size: 1.15rem;">🎓</span> <span>Select School Wing Modal</span>
+          </button>
+
+          <div style="border-top: 1px solid rgba(197, 160, 89, 0.25); margin: 10px 0 4px 0;"></div>
           <a href="/admin" class="mobile-nav-link" style="color: var(--gold-300); font-weight: 700; background: rgba(197, 160, 89, 0.12); border-color: rgba(197, 160, 89, 0.35);">
             <span style="font-size: 1.15rem;">👑</span> <span>Directorate Admin Login →</span>
           </a>
@@ -313,6 +329,18 @@ function initMobileDrawer() {
       </div>
     `;
     document.body.appendChild(drawer);
+
+    // Re-bind open-wing-modal-btn inside drawer if needed
+    const drawerWingBtn = drawer.querySelector('.open-wing-modal-btn');
+    if (drawerWingBtn) {
+      drawerWingBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        drawer.classList.remove('open');
+        document.body.style.overflow = '';
+        const modal = document.getElementById('wing-select-modal');
+        if (modal) modal.style.display = 'flex';
+      });
+    }
   }
 
   // Open drawer event
@@ -340,4 +368,104 @@ function initMobileDrawer() {
     };
   }
 }
+
+// ═══════════════════════════════════════════════════════════════════
+// DESKTOP & MOBILE HEADER DROPDOWNS CONTROLLER
+// ═══════════════════════════════════════════════════════════════════
+function initHeaderDropdowns() {
+  const dropdownContainers = document.querySelectorAll('.nav-dropdown, .wing-dropdown');
+  if (!dropdownContainers.length) return;
+
+  dropdownContainers.forEach(container => {
+    const trigger = container.querySelector('.nav-dropdown-trigger, .wing-select-btn');
+    const menu = container.querySelector('.nav-dropdown-menu, .wing-dropdown-menu');
+    if (!trigger || !menu) return;
+
+    // Click toggle handler
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = container.classList.contains('open');
+
+      // Close all other dropdowns
+      dropdownContainers.forEach(other => {
+        if (other !== container) {
+          other.classList.remove('open');
+          const otherTrigger = other.querySelector('.nav-dropdown-trigger, .wing-select-btn');
+          if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      if (isOpen) {
+        container.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      } else {
+        container.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    // Keyboard support: Escape closes current dropdown
+    container.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        container.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.focus();
+      }
+    });
+  });
+
+  // Global click outside to dismiss open dropdowns
+  document.addEventListener('click', (e) => {
+    dropdownContainers.forEach(container => {
+      if (!container.contains(e.target)) {
+        container.classList.remove('open');
+        const trigger = container.querySelector('.nav-dropdown-trigger, .wing-select-btn');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  // Sync active states on load
+  syncActiveNavigation();
+}
+
+function syncActiveNavigation() {
+  const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+
+  // 1. Primary Nav Direct Links (School category)
+  const navLinks = document.querySelectorAll('.main-nav .nav-link');
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href) return;
+    const cleanHref = href.replace(/\/$/, '') || '/';
+    if (cleanHref === currentPath || (cleanHref === '/facilities' && (currentPath === '/facilities' || currentPath === '/gallery'))) {
+      link.classList.add('active');
+    }
+  });
+
+  // 2. Dropdown Menus (Information & Student Services categories)
+  const navDropdowns = document.querySelectorAll('.nav-dropdown');
+  navDropdowns.forEach(dropdown => {
+    const trigger = dropdown.querySelector('.nav-dropdown-trigger');
+    const menuItems = dropdown.querySelectorAll('.dropdown-item');
+    let hasActiveChild = false;
+
+    menuItems.forEach(item => {
+      const href = item.getAttribute('href');
+      if (!href) return;
+      const cleanHref = href.replace(/\/$/, '') || '/';
+      if (cleanHref === currentPath || (cleanHref === '/facilities' && (currentPath === '/facilities' || currentPath === '/gallery'))) {
+        item.classList.add('active');
+        hasActiveChild = true;
+      }
+    });
+
+    if (hasActiveChild && trigger) {
+      trigger.classList.add('active');
+      dropdown.classList.add('active');
+    }
+  });
+}
+
 
