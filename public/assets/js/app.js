@@ -273,22 +273,25 @@ function initMobileDrawer() {
         </div>
 
         <div class="mobile-nav-links">
-          <!-- CATEGORY 1: SCHOOL -->
-          <div class="mobile-nav-section-title">School</div>
+          <!-- CATEGORY 1: HOME -->
+          <div class="mobile-nav-section-title">Home</div>
           <a href="/" class="mobile-nav-link ${path === '/' ? 'active' : ''}">
             <span style="font-size: 1.15rem;">🏠</span> <span>Home</span>
           </a>
+
+          <!-- CATEGORY 2: SCHOOL -->
+          <div class="mobile-nav-section-title">School</div>
           <a href="/primary" class="mobile-nav-link ${path === '/primary' ? 'active' : ''}">
-            <span style="font-size: 1.15rem;">🧸</span> <span>Excellence Elementary</span>
+            <span style="font-size: 1.15rem;">🧸</span> <span>Elementary</span>
           </a>
           <a href="/secondary" class="mobile-nav-link ${path === '/secondary' ? 'active' : ''}">
-            <span style="font-size: 1.15rem;">🏛️</span> <span>Excellence College</span>
+            <span style="font-size: 1.15rem;">🏛️</span> <span>College</span>
           </a>
           <a href="/facilities" class="mobile-nav-link ${path === '/facilities' || path === '/gallery' ? 'active' : ''}">
             <span style="font-size: 1.15rem;">🏫</span> <span>Facilities</span>
           </a>
 
-          <!-- CATEGORY 2: INFORMATION -->
+          <!-- CATEGORY 3: INFORMATION -->
           <div class="mobile-nav-section-title">Information</div>
           <a href="/newsletter" class="mobile-nav-link ${path === '/newsletter' ? 'active' : ''}">
             <span style="font-size: 1.15rem;">📰</span> <span>Newsletters</span>
@@ -297,7 +300,7 @@ function initMobileDrawer() {
             <span style="font-size: 1.15rem;">📅</span> <span>Events</span>
           </a>
 
-          <!-- CATEGORY 3: STUDENT SERVICES -->
+          <!-- CATEGORY 4: STUDENT SERVICES -->
           <div class="mobile-nav-section-title">Student Services</div>
           <a href="/result-checker" class="mobile-nav-link ${path === '/result-checker' ? 'active' : ''}">
             <span style="font-size: 1.15rem;">📜</span> <span>Result Checker</span>
@@ -433,18 +436,20 @@ function initHeaderDropdowns() {
 function syncActiveNavigation() {
   const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
 
-  // 1. Primary Nav Direct Links (School category)
+  // 1. Direct Links (Category 1: Home)
   const navLinks = document.querySelectorAll('.main-nav .nav-link');
   navLinks.forEach(link => {
     const href = link.getAttribute('href');
     if (!href) return;
     const cleanHref = href.replace(/\/$/, '') || '/';
-    if (cleanHref === currentPath || (cleanHref === '/facilities' && (currentPath === '/facilities' || currentPath === '/gallery'))) {
+    if (cleanHref === currentPath) {
       link.classList.add('active');
+    } else {
+      link.classList.remove('active');
     }
   });
 
-  // 2. Dropdown Menus (Information & Student Services categories)
+  // 2. Dropdown Menus (Categories: School, Information, Student Services)
   const navDropdowns = document.querySelectorAll('.nav-dropdown');
   navDropdowns.forEach(dropdown => {
     const trigger = dropdown.querySelector('.nav-dropdown-trigger');
@@ -455,15 +460,21 @@ function syncActiveNavigation() {
       const href = item.getAttribute('href');
       if (!href) return;
       const cleanHref = href.replace(/\/$/, '') || '/';
-      if (cleanHref === currentPath || (cleanHref === '/facilities' && (currentPath === '/facilities' || currentPath === '/gallery'))) {
+      const isMatch = cleanHref === currentPath || (cleanHref === '/facilities' && (currentPath === '/facilities' || currentPath === '/gallery'));
+      if (isMatch) {
         item.classList.add('active');
         hasActiveChild = true;
+      } else {
+        item.classList.remove('active');
       }
     });
 
-    if (hasActiveChild && trigger) {
-      trigger.classList.add('active');
+    if (hasActiveChild) {
+      if (trigger) trigger.classList.add('active');
       dropdown.classList.add('active');
+    } else {
+      if (trigger) trigger.classList.remove('active');
+      dropdown.classList.remove('active');
     }
   });
 }

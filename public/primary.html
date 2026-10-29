@@ -46,15 +46,45 @@
         </div>
       </a>
 
-      <!-- 2. CENTRE SECTION — PRIMARY NAVIGATION -->
+      <!-- 2. CENTRE SECTION — PRIMARY NAVIGATION (4 CATEGORIES) -->
       <nav class="main-nav" aria-label="Primary Navigation">
-        <!-- CATEGORY 1: SCHOOL (Direct Links) -->
+        <!-- CATEGORY 1: HOME -->
         <a href="/" class="nav-link">Home</a>
-        <a href="/primary" class="nav-link active">Excellence Elementary</a>
-        <a href="/secondary" class="nav-link">Excellence College</a>
-        <a href="/facilities" class="nav-link">Facilities</a>
 
-        <!-- CATEGORY 2: INFORMATION (Dropdown) -->
+        <!-- CATEGORY 2: SCHOOL (Dropdown - Active) -->
+        <div class="nav-dropdown active" id="dropdown-school">
+          <button type="button" class="nav-dropdown-trigger active" aria-expanded="false" aria-haspopup="true">
+            <span>School</span>
+            <svg class="dropdown-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="/primary" class="dropdown-item active" role="menuitem">
+              <span class="dropdown-item-icon">🧸</span>
+              <div class="dropdown-item-text">
+                <strong>Elementary</strong>
+                <small>Crèche, Nursery & Primary Wing</small>
+              </div>
+            </a>
+            <a href="/secondary" class="dropdown-item" role="menuitem">
+              <span class="dropdown-item-icon">🏛️</span>
+              <div class="dropdown-item-text">
+                <strong>College</strong>
+                <small>Secondary & Sixth Form Wing</small>
+              </div>
+            </a>
+            <a href="/facilities" class="dropdown-item" role="menuitem">
+              <span class="dropdown-item-icon">🏫</span>
+              <div class="dropdown-item-text">
+                <strong>Facilities</strong>
+                <small>Modern labs, sports complex & grounds</small>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- CATEGORY 3: INFORMATION (Dropdown) -->
         <div class="nav-dropdown" id="dropdown-info">
           <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">
             <span>Information</span>
@@ -80,7 +110,7 @@
           </div>
         </div>
 
-        <!-- CATEGORY 3: STUDENT SERVICES (Dropdown) -->
+        <!-- CATEGORY 4: STUDENT SERVICES (Dropdown) -->
         <div class="nav-dropdown" id="dropdown-services">
           <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">
             <span>Student Services</span>
